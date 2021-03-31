@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Recipes Admin Page</title>
+    <th:block th:include="~{/fragments/head}">Head</th:block>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/admin/recipes.css">
+
+    <!--  <link rel="stylesheet" href="/css/style.css">-->
+
+</head>
+<body>
+
+<nav>
+    <th:block th:include="~{/fragments/nav-user}">Nav</th:block>
+</nav>
+
+<div class="main">
+    <table style="width:80%;">
+        <tr style="height: 60px; font-size: large; color: #1C6EA4;">
+            <th>Рецепта</th>
+            <th>Създадена на</th>
+            <th>Време за приготвяне</th>
+            <th>Калории</th>>
+            <th>Харесвания</th>>
+            <th>Тип ястие</th>>
+            <th>Автор</th>>
+            <th>Изтрий диета</th>
+        </tr>
+        <tr style="height: 50px" th:each="recipe : ${allRecipes}" th:object="${recipe}">
+            <th>
+                <a th:href="@{/recipes/details/{id}(id = *{id})}" th:text="*{name}" >
+                    Рецепта
+                </a>
+            </th>
+            <th th:text="*{createdDate}">Създадена на</th>
+            <th th:text="*{cookingTime}">Време за приготвяне</th>
+            <th th:text="*{calories}">Калории</th>>
+            <th th:text="*{getLikes()}">Харесвания</th>>
+            <th th:text="*{typeOfRecipe.name()}">Тип ястие</th>>
+            <th th:text="*{author.username}">Автор</th>>
+
+            <th>
+                <a th:href="@{/private/delete/recipe/{id}(id = *{id})}" >
+                    <button type="button" class="btn btn-danger">Delete</button>
+                </a>
+            </th>
+
+        </tr>
+    </table>
+</div>
+
+<th:block th:include="~{/fragments/footer}">Footer</th:block>
+
+</body>
+</html>

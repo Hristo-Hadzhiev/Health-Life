@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+        <title>Main-dish recipes Page</title>
+        <th:block th:include="~{/fragments/head}"></th:block>
+<!--        <link rel="stylesheet" href="/css/recipe/recipe.css">-->
+        <link rel="stylesheet" href="/css/nav.css">
+        <link rel="stylesheet" href="/css/recipe/recipe-details.css">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<body th:object="${item}">
+
+<nav id="nav" class="navbar navbar-inverse navbar-static-top" role="navigation">
+    <th:block th:include="~{/fragments/nav-user}"></th:block>
+</nav>
+
+<div th:object="${item}" class="w3-section w3-row-padding">
+
+    <div class="w3-twothird">
+        <div class="w3-card-4">
+            <div class="w3-display-container">
+                <h1 th:text="*{name}">Food name</h1>
+                <img th:src="*{image}" alt="Car" >
+                <div id="right-container" class="w3-display-topright" >
+                    <p id="recipe_description" style="font-size: large"> Рецепта: <strong style="font-size: 12px;" th:text="*{description}" ></strong></p>
+                </div>
+                <div class="w3-display-bottomleft w3-container w3-xlarge w3-text-black"
+                     style="background-color: lightgrey">
+                    <p style="font-size: 14px"> Тип ястие: <strong th:text="*{typeOfRecipe}" style="font-size: large"></strong></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="third-container"  class="w3-third w3-container w3-center">
+
+        <div  class="w3-card-4 w3-section">
+            <div id="info-card" class="w3-container">
+
+                <p class="w3-xxlarge"> <span class="glyphicon glyphicon-time" th:text="| *{cookingTime}min |">Cooking time</span></p>
+                <p class="w3-xxlarge"> <span class="glyphicon glyphicon-scale" th:text="| *{calories}kcal |">Calories</span></p>
+                <p class="w3-xxlarge"> <span class="glyphicon glyphicon-thumbs-up" th:text="| *{likes}|">Likes</span></p>
+            </div>
+        </div>
+    </div>
+    <div id="fourth-container"  class="w3-third w3-container w3-center">
+
+        <div  class="w3-card-4 w3-section" >
+            <div id="product-card" class="w3-container" style="background-color: rgba(59,243,255,0.39)">
+                <p style="font-size: large"> Продукти: <strong id="description"  th:text="*{products}" style="font-size: small"></strong></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</div>
+
+<th:block th:include="~{/fragments/footer}"></th:block>
+
+</body>
+
+

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{/fragments/head}"></th:block>
+    <title>Contact us</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="/css/contact-us.css">
+
+</head>
+<body>
+
+<th:block th:include="~{/fragments/nav-user}"></th:block>
+
+
+<form id="contact-us" th:action="@{/contact-us}" method="POST" class="decor">
+    <div class="form-left-decoration"></div>
+    <div class="form-right-decoration"></div>
+    <div class="circle"></div>
+    <div class="form-inner">
+        <h1>Contact us</h1>
+        <input  type="text" placeholder="Username" name="username">
+        <input type="email" placeholder="Email" name="email">
+        <textarea  placeholder="Message..." rows="5" name="message"></textarea>
+
+        <input type="submit" class="btn btn-success" style="background-color: green" value="Send message">
+    </div>
+</form>
+
+<th:block th:include="~{/fragments/footer}"></th:block>
+
+</body>
+</html>

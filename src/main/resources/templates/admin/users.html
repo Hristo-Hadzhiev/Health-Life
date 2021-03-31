@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Users Page</title>
+    <th:block th:include="~{/fragments/head}">Head</th:block>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/admin/users.css">
+
+    <!--  <link rel="stylesheet" href="/css/style.css">-->
+
+</head>
+<body>
+
+<nav>
+    <th:block th:include="~{/fragments/nav-user}">Nav</th:block>
+</nav>
+
+<div class="main">
+    <table style="width:80%;">
+        <tr style="height: 60px; font-size: large; color: #1C6EA4;">
+            <th>Потребител</th>
+            <th>Имейл</th>
+            <th>Парола</th>
+            <th>Смени роля</th>
+            >
+            <!--            <th>Edit User</th>-->
+            <th>Изтрий потребител</th>
+        </tr>
+        <tr style="height: 50px" th:each="user : ${allUsers}" th:object="${user}">
+            <th th:text="*{username}">User</th>
+            <th th:text="*{email}">Email</th>
+            <th style="color: #dc3545">*************</th>
+            <th>
+                <!--                th:href="@{/private/make-admin/{id}(id = *{id})}"-->
+                <a th:if="${user.roles.size()==1}"
+                   sec:authorize="hasRole('ROLE_ROOT_ADMIN')"
+                   th:href="@{/private/make-admin/{id}(id = *{id})}">
+                    <button type="button" class="btn btn-success">Make admin</button>
+                </a>
+                <a th:if="${user.roles.size()==2}"
+                   sec:authorize="hasRole('ROLE_ROOT_ADMIN')"
+                   th:href="@{/private/remove-admin-role/{id}(id = *{id})}">
+                    <button type="button" class="btn btn-warning">Remove admin</button>
+                </a>
+            </th>
+            <!--            <th>-->
+            <!--                <a th:href="@{/users/edit/{id}(id = *{id})}" >-->
+            <!--                    <button type="button" class="btn btn-warning">Edit</button>-->
+            <!--                </a>-->
+            <!--            </th>-->
+            <th>
+                <a  th:if="${user.roles.size()<3}"
+                    sec:authorize="hasRole('ROLE_ROOT_ADMIN')"
+                    th:href=" @{/private/delete/user/{id}(id = *{id})}">
+                <button type="button" class="btn btn-danger">Delete</button>
+                </a>
+            </th>
+
+        </tr>
+    </table>
+</div>
+
+<th:block th:include="~{/fragments/footer}">Footer</th:block>
+
+</body>
+</html>

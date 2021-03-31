@@ -1,0 +1,20 @@
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 8%;
+    color: white;
+    text-align: center;
+    background-image: url("/images/footer-background.jpg");
+    opacity: 90%;
+}
+
+span{
+    color: darkgrey;
+    /*padding-right: 250px;*/
+}
+strong{
+    color: white;
+}

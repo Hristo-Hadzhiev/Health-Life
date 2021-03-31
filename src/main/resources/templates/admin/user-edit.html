@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title> Login Page Website</title>
+    <th:block th:include="~{/fragments/head}"></th:block>
+    <link rel="stylesheet" href="/css/user/login.css">
+</head>
+
+<body >
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <!-- <a class="navbar-brand" href="#">Bet BG</a> -->
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a  id="home" href="/"><span class="glyphicon glyphicon-home" ></span>Home</a></li>
+                <li ><a href="/users/login"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="wrapper">
+    <div id="formContent">
+        <!-- Login Form -->
+        <form th:object="${userInfo}" th:href="@{/private/edit}" method="POST">
+
+            <label for="login">
+                <input th:field="*{username}"  type="text" id="login" class="fadeIn second" name="username" placeholder="Username">
+            </label>
+            <label for="email">
+                <input th:field="*{email}" type="email" id="email" class="fadeIn third" name="email" placeholder="Email">
+            </label>
+            <label for="password">
+                <input  type="text" id="password" class="fadeIn third" name="password" placeholder="Enter new password:">
+            </label>
+            <label for="repeatPassword">
+                <input type="text" id="repeatPassword" class="fadeIn third" name="repeatPassword" placeholder="Confirm password">
+            </label>
+
+            <input type="submit" class="fadeIn fourth" value="Change">
+
+        </form>
+
+        <!-- Remind Passowrd -->
+
+    </div>
+</div>
+
+<th:block th:include="~{/fragments/footer}"></th:block>
+
+</body>
+
+</html>

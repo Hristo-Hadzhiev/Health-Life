@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <th:block th:include="~{/fragments/head}"></th:block>
+    <title>Index Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="/css/nav.css">
+    <link rel="stylesheet" href="/css/diet/diet-details.css">
+</head>
+
+<body th:object="${diet}" style="background-image: url('/images/diet/diet-details-background.jpg')">
+<th:block th:include="~{/fragments/nav-user.html}"></th:block>
+
+<div class="w3-container w3-animate-zoom w3-margin-bottom">
+    <h1 th:text="*{name}" style="padding-top: 40px">Name</h1>
+<!--    <a href="tryw3css_examples_sauvignon_blanc.htm"><span class="w3-right w3-xxlarge">»</span></a>-->
+</div>
+
+<div class="w3-row-padding ">
+
+    <div class="w3-twothird">
+        <h2>Данни за диета</h2>
+        <table class="w3-table w3-striped w3-bordered w3-border">
+            <thead class="w3-teal">
+            <th style="width:30%">#</th>
+            <th>Данни</th>
+            </thead>
+            <tr>
+                <td>Име на диета:</td>
+                <td th:text="*{name}"></td>
+            </tr>
+            <tr>
+                <td>Цел:</td>
+                <td th:text="*{target.name()}"></td>
+            </tr>
+            <tr>
+                <td>Харесвания</td>
+                <td th:text="*{likes}"></td>
+            </tr>
+        </table>
+        <h2>Автор на диета</h2>
+        <table class="w3-table w3-striped w3-bordered w3-border">
+            <thead class="w3-teal">
+            <th style="width:30%">#</th>
+            <th>Данни</th>
+            </thead>
+            <tr>
+                <td>Потребител:</td>
+                <td th:text="*{author.username}"></td>
+            </tr>
+            <tr>
+                <td>Имейл:</td>
+                <td th:text="*{author.email}"></td>
+            </tr>
+            <tr>
+                <td>Брой роли:</td>
+                <td th:text="*{author.roles.size()}"></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="w3-third">
+        <h1>Описание на диета:</h1>
+        <p th:text="*{description}">
+
+        </p>
+    </div>
+
+</div>
+<footer class="footer">
+    <th:block th:include="~{/fragments/footer}"></th:block>
+</footer>
+</body>
+</html>
+

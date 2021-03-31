@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Recipe</title>
+    <th:block th:include="~{/fragments/head}"></th:block>
+
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600' rel='stylesheet'
+          type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+
+    <link rel="stylesheet" href="/css/recipe/add-recipe.css">
+    <link rel="stylesheet" href="/css/nav.css">
+
+
+</head>
+<body>
+<nav>
+    <th:block th:include="~{/fragments/nav-user}">Nav</th:block>
+</nav>
+<div class="main-block">
+    <h1 >Добави рецепта</h1>
+    <form th:object="${recipeAddBindingModel}" id="form" th:action="@{/recipes/add}" method="POST">
+        <div class="info ">
+            <input th:field="*{name}" id="name" name="name" placeholder="Име на рецепта" type="text">
+            <input th:field="*{products}" id="products" name="products"
+                   placeholder="Продуктите разделени със запетая - [брашно, яйца и др.]" type="text">
+            <input id="cookingTime" name="cookingTime" placeholder="Време за готвене /минути/" type="number">
+            <input id="calories" name="calories" placeholder="Общо калории за рецепта" required="" onfocus="this.type='number';">
+            <input th:field="*{image}" id="image_recipe" name="image" placeholder="Постави снимка" required="" type="text">
+            <textarea th:field="*{description}" id="recipe_description" name="description"
+                      placeholder="Опиши подробно начина на приготване на рецептата"></textarea>
+            <select id="typeOfRecipe" name="typeOfRecipe">
+                <option selected value="">Избери типа на рецептата</option>
+                <option th:each="t : ${T(health.model.entity.enums.RecipeEnum).values()}"
+                        th:object="${t}" th:text="*{name()}" th:value="*{name()}">Starter</option>
+            </select>
+        </div>
+<!--        <h3>Delivry Metod</h3>-->
+<!--        <div class="metod">-->
+<!--            <div>-->
+<!--                <input type="radio" value="none" id="radioOne" name="metod" checked/>-->
+<!--                <label for="radioOne" class="radio">For pick up</label>-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                <input type="radio" value="none" id="radioTwo" name="metod"/>-->
+<!--                <label for="radioTwo" class="radio">For delivery</label>-->
+<!--            </div>-->
+<!--        </div>-->
+        <button id="submit" href="/" class="button">Създай рецепта</button>
+    </form>
+</div>
+<th:block th:include="~{/fragments/footer}"></th:block>
+
+</body>
+</html>

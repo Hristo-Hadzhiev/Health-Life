@@ -1,0 +1,31 @@
+* {
+    box-sizing: border-box;
+}
+.left, .right, .center {
+    float: left;
+    width: 33%;
+    color: white;
+    padding: 10px;
+    height: 500px;
+    text-align: center;
+}
+.left {
+    background-color: tomato;
+}
+.right {
+    background-color: teal;
+}
+.center {
+    background-color: rgb(166, 71, 255);
+}
+.container:after {
+    clear: both;
+}
+body {
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 100%;
+    background: url("/images/diet/diet-choose.jpg") no-repeat center;
+    background-size: cover;
+}

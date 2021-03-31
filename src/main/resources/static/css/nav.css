@@ -1,0 +1,64 @@
+ul.topnav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: #333;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+ul.topnav li {
+    float: left;
+    margin: 5px;
+    padding-left: 25px;
+}
+
+ul.topnav li a {
+    display: block;
+    color: white;
+    text-align: left;
+    padding: 8px 8px;
+    text-decoration: none;
+}
+
+ul.topnav li:hover a:not(.active) {
+    background-color: rgb(221, 218, 218);
+    color: #000;
+}
+
+
+ul.topnav li a.active {
+    background-color: #D2691E;
+    color: white;
+}
+
+ul.topnav li.right {
+    float: right;
+}
+
+@media screen and (max-width: 600px) {
+
+    ul.topnav,
+    ul.topnav {
+        position: unset
+    }
+
+    ul.topnav li.right,
+    ul.topnav li {
+        float: none;
+    }
+}
+
+ul.topnav .dropdown-content {
+    display: none;
+    position: fixed;
+}
+
+ul.topnav .dropdown-content a {
+    color: black;
+}
+
+ul.topnav .dropdown:hover>.dropdown-content {
+    display: block;
+}

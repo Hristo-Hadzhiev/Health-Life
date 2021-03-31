@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>What is a diet!</title>
+    <th:block th:include="~{/fragments/head}"></th:block>
+    <link rel="stylesheet" href="/css/diet/explanation.css">
+    <link rel="stylesheet" href="/css/nav.css">
+
+
+</head>
+<body>
+<th:block th:include="~{/fragments/nav-user.html}"></th:block>
+
+<div class="header">
+    <h2>Всичко за вашата диета</h2>
+</div>
+
+<div class="row">
+    <div class="leftcolumn">
+        <div class="card">
+            <h2>Какво е диета</h2>
+            <h4>Публикуванa на: Dec 7, 2017</h4>
+            <p>
+                Диетата е хранителен режим, при който се спазва определен тип хранене с цел да се коригира теглото на
+                човека или да се подобри здравословното му състояние. Във втория случай понятието се употребява като вид
+                лечебно хранене, което се прилага при различни видове заболявания. Спазването на диета не означава
+                лишаване от храна, а правилната ѝ консумация. В нея е важно количеството, качеството и съотношението на
+                приеманите храни. Има различни диети при различните болести – диабет, сърдечни болести, наднормено тегло
+                и др.</p>
+            <p>
+                Диeтaтa винaги ce бъpĸa c глaдyвaнe, зaщoтo xopaтa нaй-чecтo ce ceщaт зa диeти, ĸoгaтo иcĸaт дa
+                oтcлaбнaт
+                (в peдĸи cлyчaи, ĸoгaтo иcĸaт дa ĸaчaт ĸилoгpaми, cпopтиcти нaпpимep).
+                <br>
+            </p>
+            <p>
+                Koгaтo чoвeĸ иcĸa дa oтcлaбнe, тoгaвa cпaзвa диeтa, ĸoятo cъдъpжa xpaни, ĸoитo cтимyлиpaт пpoцeca нa
+                гopeнe
+                нa мaзнини и нe пpиeмa xpaни, ĸoитo мoгaт дa ce нaтpyпaт ĸaтo пoдĸoжни мaзнини.
+                <br>
+            </p>
+            <p>
+                Haй-пoпyляpният пpинцип в диeтитe зa oтcлaбвaнe e пpиeмaнe нa xpaни, ĸoитo "xpaнят" мycĸyлитe (пpoтeини)
+                и
+                oгpaничaвaнeтo нa xpaни, ĸoитo лecнo ce пpeвpъщaт в мaзнини (въглexидpaти и мaзнини).
+                <br>
+            </p>
+        </div>
+    </div>
+    <div class="rightcolumn">
+        <div class="card">
+            <h3>ТОП 5 диети:</h3>
+            <div class="list-group">
+                <a th:each="d : ${topFive}" th:text="*{d.name}" th:href="@{/diets/details/{id}(id = *{d.id})}"
+                   class="list-group-item list-group-item-action">
+                    DIET
+                </a>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<footer style="">
+    <th:block th:include="~{/fragments/footer}" ></th:block>
+</footer>
+</body>
+</html>

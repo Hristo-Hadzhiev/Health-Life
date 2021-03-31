@@ -1,0 +1,17 @@
+table, th, td {
+    border: 1px solid #666;
+    background-color: whitesmoke;
+}
+
+body {
+    background-image: url("/images/admin/recipes-admin-background.jpg");
+}
+
+.main {
+    padding: 80px;
+}
+
+th {
+    text-align: center;
+    padding: 5px;
+}

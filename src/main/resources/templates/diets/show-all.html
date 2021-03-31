@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Show all diets</title>
+    <th:block th:include="~{/fragments/head}"></th:block>
+    <link rel="stylesheet" href="/css/nav.css">
+    <link rel="stylesheet" href="/css/diet/show-all.css">
+
+</head>
+
+<body>
+
+<th:block th:include="~{/fragments/nav-user}"></th:block>
+
+<h1 style="text-align: center; color: white; padding: 2%">Видове диети според целта</h1>
+<div class="container">
+    <div class="left">
+        <h1>Загуба на тегло</h1>
+        <div class="list-group">
+            <a th:each="diet : ${loss}" th:text="*{diet.name}" th:value="*{diet.name}"
+               th:href="@{/diets/details/{id}(id = *{diet.id})}" class="list-group-item list-group-item-action ">The current link item
+            </a>
+        </div>
+    </div>
+    <div class="center" >
+        <h1>Запазване на тегло</h1>
+        <div class="list-group">
+            <a th:each="diet : ${maintain}" th:text="*{diet.name}" th:value="*{diet.name}"
+               th:href="@{/diets/details/{id}(id = *{diet.id})}" class="list-group-item list-group-item-action ">The current link item</a>
+        </div>
+    </div>
+    <div class="right">
+        <h1>Покачване на тегло</h1>
+        <div class="list-group">
+            <a th:each="diet : ${gain}" th:text="*{diet.name}" th:value="*{diet.name}"
+               th:href="@{/diets/details/{id}(id = *{diet.id})}" class="list-group-item list-group-item-action ">The current link item</a>
+        </div>    </div>
+</div>
+</body>
+
+<th:block th:include="~{/fragments/footer}"></th:block>
+
+</body>
+</html>

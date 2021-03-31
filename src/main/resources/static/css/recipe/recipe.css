@@ -1,0 +1,111 @@
+
+body {
+    background-image: url("/images/recipe/recipe-background.jpg");
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    font-family: Arial, Helvetica, sans-serif;
+    padding-bottom: 100px;
+}
+
+.row{
+    padding: 20px;
+}
+
+h1 {
+    font-size: 22px;
+    height: 80px;
+}
+
+h2 {
+    background-color: whitesmoke;
+    height: 75px;
+    width: 520px;
+    text-align: center;
+
+}
+
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 240px;
+    background-color: rgba(255, 240, 209, 0.8);
+    text-align: center;
+    font-family: arial;
+    outline-style: solid;
+    outline-color: slategrey;
+    margin: 10px;
+}
+
+.price {
+    color: black;
+    font-size: 14px;
+}
+
+.card button {
+    border: none;
+    outline: 0;
+    padding: 12px;
+    color: white;
+    background-color: #000;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+}
+
+.card img {
+    width: 208px;
+    height: 200px;
+}
+
+.card button:hover {
+    opacity: 0.7;
+}
+
+.column {
+    float: left;
+    width: 16.0%;
+    padding: 5px;
+    margin-left: 10px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.row {
+    padding-top: 60px;
+}
+
+.w3-container, .w3-panel {
+    padding: 0.01em 16px;
+    width: 520px;
+}
+
+#info-card {
+    color: #fcf8e3 !important;
+    width: 80%;
+    height: 250px;
+    font-size: x-large;
+}
+
+
+@media (min-width: 601px) {
+    .w3-col.m8, .w3-twothird {
+        width: 60%;
+    }
+}
+
+.w3-white, .w3-hover-white:hover {
+    color: #000 !important;
+    background-color: #39ace7;
+}
+
+.w3-card-4, .w3-hover-shadow:hover {
+    box-shadow: 0 4px 10px 0 rgb(0 0 0 / 20%), 0 4px 20px 0 rgb(0 0 0 / 19%);
+    padding-left: 20%;
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Diets Admin Page</title>
+    <th:block th:include="~{/fragments/head}">Head</th:block>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/admin/diets.css">
+
+</head>
+<body>
+
+<nav>
+    <th:block th:include="~{/fragments/nav-user}">Nav</th:block>
+</nav>
+
+<div class="main">
+    <table style="width:80%;">
+        <tr style="height: 60px; font-size: large; color: #1C6EA4;">
+            <th>Диета</th>
+            <th>Цел</th>
+            <th>Харесвания</th>
+            <th>Автор</th>>
+        </tr>
+        <tr style="height: 50px" th:each="diet : ${allDiets}" th:object="${diet}">
+            <th>
+                <a th:href="@{/diets/details/{id}(id = *{id})}" th:text="*{name}" >
+                    Диета
+                </a>
+            </th>
+            <th th:text="*{target.name()}">Цел</th>
+            <th th:text="*{getLikes()}">Харесвания</th>
+            <th th:text="*{author.username}">Автор</th>>
+
+            <th>
+                <a th:href="@{/private/delete/diet/{id}(id = *{id})}" >
+                    <button type="button" class="btn btn-danger">Delete</button>
+                </a>
+            </th>
+
+        </tr>
+    </table>
+</div>
+
+<th:block th:include="~{/fragments/footer}">Footer</th:block>
+
+</body>
+</html>

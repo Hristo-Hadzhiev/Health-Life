@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Starter recipes Page</title>
+
+    <th:block th:include="~{/fragments/head}"></th:block>
+    <link rel="stylesheet" href="/css/recipe/recipe.css">
+    <link rel="stylesheet" href="/css/nav.css">
+</head>
+
+<body>
+<nav>
+    <th:block th:include="~{/fragments/nav-user}"></th:block>
+</nav>
+
+    <div class="row">
+        <div th:each="s : ${recipes}" th:object="${s}" class="column">
+            <div class="card">
+                <img th:src="*{image}"
+                    alt="broken pic"  src="">
+                <h1 th:text="*{name}" th:value="*{name}">Food Name</h1>
+                <p th:text="|*{calories} калории|" th:value="*{calories}" class="price"></p>
+                <p th:text="|*{cookingTime} минути|" th:value="*{cookingTime}" class="price"></p>
+                <a th:href="@{/recipes/details/{id}(id = *{id})}" ><button>Виж рецепта</button></a>
+            </div>
+        </div>
+      </div>
+
+
+<th:block th:include="~{/fragments/footer}"></th:block>
+
+</body>
+
+</html>
+

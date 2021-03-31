@@ -1,0 +1,52 @@
+<th:block xmlns:th="http://www.thymeleaf.org"
+          xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <ul class="topnav">
+        <li><a href="/">Начало</a></li>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">Рецепти
+                <i class="fa fa-caret-down"></i>
+            </a>
+            <div class="dropdown-content">
+                <a href="/recipes/starter">Предястия</a>
+                <a href="/recipes/main-dish">Основни</a>
+                <a href="/recipes/dessert">Десерти</a>
+                <a href="/recipes/vegetarian">Вегетариански</a>
+            </div>
+        </li>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">Диети
+                <i class="fa fa-caret-down"></i>
+            </a>
+            <div class="dropdown-content">
+                <a href="/diets/explanation">Какво е диета?</a>
+                <a href="/diets/show-all">Избери диета</a>
+            </div>
+        </li>
+
+        <li><a href="/recipes/add">Създай рецепта</a></li>
+        <li><a href="/diets/add">Добави диета</a></li>
+
+<!--            <a class="btn btn-success btn-sm"></a></li>-->
+        <li sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown">
+            <a href="javascript:void(0)" class="btn btn-info">Админ панел
+                <i class="fa fa-caret-down"></i>
+            </a>
+            <div class="dropdown-content">
+                <a sec:authorize="hasRole('ROLE_ROOT_ADMIN')" href="/private/all-users">Потребители</a>
+                <a href="/private/all-recipes">Рецепти</a>
+                <a href="/private/all-diets">Диети</a>
+            </div>
+        </li>
+        <li><a href="/contactUs">Свържи се с нас</a></li>
+
+
+        <li style="padding-top: 5px; padding-right: 20px ; float: right">
+            <form th:action="@{/logout}" method="POST">
+                <button type="submit" class="btn btn-danger btn-sm glyphicon glyphicon-log-out" style="background: #dc3545; width: 80px" >
+                    Logout
+                </button>
+
+            </form>
+        </li>
+    </ul>
+</th:block>

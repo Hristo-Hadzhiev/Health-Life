@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title> Login Page Website</title>
+    <th:block th:include="~{/fragments/head}"></th:block>
+    <link rel="stylesheet" href="/css/user/login.css">
+</head>
+
+<body id="user">
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <!-- <a class="navbar-brand" href="#">Bet BG</a> -->
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a id="home" href="/"><span class="glyphicon glyphicon-home"></span>Home</a></li>
+                <li><a href="/users/register"><span class="glyphicon glyphicon-user"></span>Register</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="wrapper">
+    <div id="formContent">
+        <!-- Tabs Titles -->
+        <h2 style="padding-left: 8%" class="active"> Sign In </h2>
+        <h2 style="padding-left: 5%" class="inactive underlineHover"><a th:href="@{/users/register}">Sign Up</a></h2>
+
+        <!-- Login Form -->
+        <form th:action="@{/users/login}" method="POST">
+
+            <label for="inputUsername">
+
+                <input type="text"
+                       id="inputUsername"
+                       th:value="${username}"
+                       required minlength="3" maxlength="20"
+                       class="fadeIn second"
+                       name="username"
+                       placeholder="Username">
+            </label>
+            <label for="password">
+                <input type="password"
+                       id="password"
+                       class="fadeIn third"
+                       required minlength="3" maxlength="20"
+                       name="password"
+                       placeholder="Password">
+            </label>
+
+            <input type="submit" class="fadeIn fourth" value="Log In">
+
+        </form>
+
+        <!--        &lt;!&ndash; Remind Passowrd &ndash;&gt;-->
+        <!--        <div id="formFooter">-->
+        <!--            <a class="underlineHover" href="#">Forgot Password?</a>-->
+        <!--        </div>-->
+
+    </div>
+</div>
+
+<th:block th:include="~{/fragments/footer}"></th:block>
+
+</body>
+
+</html>

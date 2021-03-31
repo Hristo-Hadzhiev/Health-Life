@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <th:block th:include="~{/fragments/head}"></th:block>
+
+    <title>Index Page</title>
+
+</head>
+
+<body>
+
+
+<nav class="navbar navbar-inverse" style="margin: 0">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <!-- <a class="navbar-brand" href="#">Bet BG</a> -->
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/users/login"><span class="glyphicon glyphicon-log-in" style="float: left"></span>Login</a>
+                </li>
+                <li><a href="/users/register"><span class="glyphicon glyphicon-user"></span>Register</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<img id="indexImg" th:src="@{/images/{image}(image=${image})}" alt="" src=""/>
+
+<!--<h2>-->
+<!--    "„Не се нуждаете от сребърна вилица, <br> за да ядете добра храна.“ – Пол Прюдон, кулинар"-->
+<!--</h2>-->
+
+
+<footer class="footer">
+    <th:block th:include="~{/fragments/footer}"></th:block>
+</footer>
+</body>
+</html>

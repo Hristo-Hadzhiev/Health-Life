@@ -1,0 +1,26 @@
+logging:
+  level:
+    blog: WARN
+    org: WARN
+    org.hibernate.SQL: DEBUG
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: 12345
+    url: jdbc:mysql://localhost:3306/healthy_life_db?useSSL=false&createDatabaseIfNotExist=true&amp
+    username: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format:
+          sql: true
+
+carousel:
+
+  images: index2.jpg, index3.jpg, index4.jpg
+  refresh-cron: "* 0 8 * * 1-5"
+#  refresh-cron: "*/10 * * * * *"

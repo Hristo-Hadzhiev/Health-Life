@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title> Login Page Website</title>
+    <th:block th:include="~{/fragments/head}"></th:block>
+    <link rel="stylesheet" href="/css/user/login.css">
+</head>
+
+<body id="user">
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <!-- <a class="navbar-brand" href="#">Bet BG</a> -->
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a  id="home" href="/"><span class="glyphicon glyphicon-home" ></span>Home</a></li>
+                <li ><a href="/users/login"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="wrapper">
+    <div id="formContent">
+        <!-- Tabs Titles -->
+        <h2 style="padding-left: 10%" class="inactive underlineHover"> <a th:href="@{/users/login}">Sign In </a></h2>
+        <h2 style="padding-left: 8%" class="active"> Sign Up </h2>
+        <!-- Login Form -->
+        <form th:action="@{/users/register}" th:object="${userRegisterBindingModel}" method="POST">
+<!--            required minlength="3" maxlength="20"-->
+            <div class="form-group">
+                <label for="login">
+                    <input th:field="*{username}"
+                           th:errorclass="is-invalid"
+                           type="text"
+                           id="login"
+
+                           class="fadeIn first"
+                           name="username"
+                           placeholder="Username">
+
+                </label>
+                <small  th:errors="*{username}"
+                       class="invalid-feedback alert alert-warning"> Incorrect username! </small>
+            </div>
+
+            <label for="email">
+                <input th:field="*{email}"
+                       th:errorclass="bg-danger"
+                       type="email"
+                       id="email"
+                       required min="3"
+                       class="fadeIn second"
+                       name="email"
+                       placeholder="Email">
+                <small  th:errors="*{email}" class="text-danger">Incorrect username!</small>
+            </label>
+
+            <label for="password">
+                <input th:field="*{password}"
+                       th:errorclass="bg-danger"
+                       type="password" id="password"
+                       required minlength="3" maxlength="20"
+                       class="fadeIn third"
+                       name="password"
+                       placeholder="Password">
+                <small th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger">Incorrect username!</small>
+            </label>
+
+            <label for="repeatPassword">
+                <input th:field="*{repeatPassword}"
+                       th:errorclass="bg-danger"
+                       type="password"
+                       required minlength="3" maxlength="20"
+                       id="repeatPassword"
+                       class="fadeIn fourth"
+                       name="repeatPassword"
+                       placeholder="Confirm password">
+                <small th:if="${#fields.hasErrors('repeatPassword')}" th:errors="*{password}" class="text-danger">Incorrect username!</small>
+            </label>
+
+            <input type="submit" class="fadeIn fourth" value="Register">
+
+        </form>
+
+    </div>
+</div>
+
+<th:block th:include="~{/fragments/footer}"></th:block>
+
+</body>
+
+</html>
+
+
+
+

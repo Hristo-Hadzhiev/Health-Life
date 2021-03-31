@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <title>Add Diet</title>
+    <th:block th:include="~{/fragments/head}"></th:block>
+
+    <link rel="stylesheet" href="/css/diet/add-diet.css">
+    <link rel="stylesheet" href="/css/nav.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+</head>
+<body>
+
+<nav>
+    <th:block th:include="~{/fragments/nav-user}"></th:block>
+</nav>
+
+<div class="row">
+    <div id="left-column" class="column">
+        <div class="testbox">
+            <form th:object="${dietAddBindingModel}" id="add-form" th:action="@{/diets/add}" method="POST">
+
+            <div class="banner">
+                </div>
+                <h2>Добави своята диета!</h2>
+                <div class="item">
+                    <p>Name</p>
+                    <div class="name-item">
+                        <input  id="product_id"
+                                name="name" placeholder="Име на диетата" required=
+                                type="text">
+                        <select  id="targetOfDiet" name="target">
+                            <option selected value="">Цел на диета!</option>
+                            <option th:each="t : ${T(health.model.entity.enums.DietTargetEnum).values()}"
+                                    th:text="${t}" th:value="${t}">Target</option>
+                        </select>
+                    </div>
+                </div>
+                <textarea id="recipe_description" name="description" placeholder="Опиши подробно диетата!"></textarea>
+                <div class="btn-block">
+                    <button type="submit" href="/">Добави диета</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="right-column" class="column" >
+
+    </div>
+</div>
+<th:block th:include="~{/fragments/footer}"></th:block>
+
+</body>
+</html>
