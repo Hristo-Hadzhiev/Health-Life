@@ -12,14 +12,17 @@ import org.modelmapper.ModelMapper;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -87,9 +90,7 @@ public class UserServiceImpl implements UserService {
             userRepository.saveAndFlush(user4);
 
         }
-
     }
-
     @Override
     public void registerUser(UserServiceModel userServiceModel) {
 
@@ -144,4 +145,27 @@ public class UserServiceImpl implements UserService {
     }
 
 
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        UserEntity userEntity = userRepository.
+                findByUsername(username).
+                orElseThrow(() -> new UsernameNotFoundException("User with name " + username + " was not found."));
+
+        return mapToUserDetails(userEntity);
+    }
+
+    private UserDetails mapToUserDetails(UserEntity userEntity) {
+        List<GrantedAuthority> authorities =
+                userEntity.
+                        getRoles().
+                        stream().
+                        map(r -> new SimpleGrantedAuthority("ROLE_" + r.getRole().name())).
+                        collect(Collectors.toList());
+
+        return new User(
+                userEntity.getUsername(),
+                userEntity.getPassword(),
+                authorities
+        );
+    }
 }

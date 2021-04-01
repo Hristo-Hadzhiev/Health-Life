@@ -1,7 +1,5 @@
 package health.model.service;
 
-import health.model.entity.Diet;
-import health.model.entity.Recipe;
 import health.model.entity.UserRoleEntity;
 
 import java.util.ArrayList;
@@ -12,8 +10,6 @@ public class UserServiceModel {
     private String password;
     private String email;
     private List<UserRoleEntity> roles = new ArrayList<>();
-    private List<Diet> createdDiets;
-    private List<Recipe> createdRecipes;
 
     public UserServiceModel() {
     }
@@ -50,19 +46,4 @@ public class UserServiceModel {
         this.roles = roles;
     }
 
-    public List<Diet> getCreatedDiets() {
-        return createdDiets;
-    }
-
-    public void setCreatedDiets(List<Diet> createdDiets) {
-        this.createdDiets = createdDiets;
-    }
-
-    public List<Recipe> getCreatedRecipes() {
-        return createdRecipes;
-    }
-
-    public void setCreatedRecipes(List<Recipe> createdRecipes) {
-        this.createdRecipes = createdRecipes;
-    }
 }

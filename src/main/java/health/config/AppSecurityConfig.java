@@ -1,6 +1,6 @@
 package health.config;
 
-import health.service.HealthLifeUserService;
+import health.service.impl.UserServiceImpl;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -15,11 +15,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final PasswordEncoder passwordEncoder;
-    private final HealthLifeUserService healthLifeUserService;
+    private final UserServiceImpl userService;
 
-    public AppSecurityConfig(PasswordEncoder passwordEncoder, HealthLifeUserService healthLifeUserService) {
+    public AppSecurityConfig(PasswordEncoder passwordEncoder, UserServiceImpl userService) {
         this.passwordEncoder = passwordEncoder;
-        this.healthLifeUserService = healthLifeUserService;
+        this.userService = userService;
     }
 
     @Override
@@ -65,7 +65,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.
-                userDetailsService(healthLifeUserService).
+                userDetailsService(userService).
                 passwordEncoder(passwordEncoder);
     }
 

@@ -8,11 +8,15 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders.logout;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -61,6 +65,29 @@ public class UserControllerTest {
                 .param("password", "topsecret")
         );
     }
+    @Test
+    @WithMockUser(username="admin",authorities={"USER","ADMIN"})
+    public void post_register_page_with_user() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
+                .post("/users/register")
+                .param("username", "admin")
+                .param("password", "admin")
+                .param("email", "admin@abv.bg")
+                .with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(mvcResult -> {
+                    "/users".equals(mvcResult.getModelAndView().getViewName());
+                });
+    }
+    @Test
+    @WithMockUser(username="user",authorities={"ROOT_ADMIN"})
+    public void postBlogCategoryWhenLoggedWithoutAdminAccess() throws Exception {
+        mockMvc.perform(get("/private/users-all")
+                .with(csrf()))
+                .andExpect(status().is4xxClientError());
+
+    }
+
     @Test
     public void register_should_return_invalid_status() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/users/register/434343"))

@@ -3,11 +3,12 @@ package health.service;
 import health.model.entity.UserEntity;
 import health.model.service.UserServiceModel;
 import health.model.view.UserViewModel;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
+
 
 import java.util.List;
 
-public interface UserService {
+public interface UserService extends UserDetailsService {
 
     void seedUsers();
 
