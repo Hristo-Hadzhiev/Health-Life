@@ -125,3 +125,7 @@ input::placeholder, textarea::placeholder{
         width: 60%;
     }
 }
+.errors{
+    font-size: 18px;
+    position: center;
+}

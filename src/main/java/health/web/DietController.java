@@ -32,15 +32,19 @@ public class DietController {
         if(!model.containsAttribute("dietAddBindingModel")){
             model.addAttribute("dietAddBindingModel", new DietAddBindingModel());
         }
+        if(!model.containsAttribute("dietExistError")){
+            model.addAttribute("dietExistError", false);
+        }
         return "/diets/add-diet";
     }
     @PostMapping("/add")
     public String addDiet (@Valid @ModelAttribute DietAddBindingModel dietAddBindingModel,
                            BindingResult bindingResult,
                            RedirectAttributes redirectAttributes){
-
         if(bindingResult.hasErrors()){
             redirectAttributes.addFlashAttribute("dietAddBindingModel", dietAddBindingModel);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.dietAddBindingModel",
+                    bindingResult);
             return "redirect:add";
         }
         if(dietService.dietExists(dietAddBindingModel.getName())){

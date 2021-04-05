@@ -108,9 +108,6 @@ select {
     background: transparent;
 }
 
-.item:hover p, .item:hover i, .question:hover p, .question label:hover, input:hover::placeholder, a {
-    color: #095484;
-}
 
 .item input:hover, .item select:hover {
     border: 1px solid transparent;
@@ -219,6 +216,8 @@ button:hover {
     background: #0666a3;
 }
 
+
+
 @media (min-width: 568px) {
     .name-item, .city-item {
         display: flex;
@@ -237,4 +236,9 @@ button:hover {
     #recipe_description {
         width: calc(100% - 8px);
     }
+}
+
+small{
+    color: red;
+    font-size: 16px;
 }

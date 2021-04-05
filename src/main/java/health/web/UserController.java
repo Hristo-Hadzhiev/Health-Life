@@ -4,14 +4,17 @@ import health.model.binding.UserRegisterBindingModel;
 import health.model.service.UserServiceModel;
 import health.service.UserService;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -30,10 +33,13 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String getLogin(){
+    public String getLogin(Model model){
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            if(!model.containsAttribute("error")){
+                model.addAttribute("error", false);
+            }
             return "login";
         }
         return "redirect:/home";
@@ -42,8 +48,10 @@ public class UserController {
     @GetMapping("/register")
     public String getRegister(Model model){
 
-        if(!model.containsAttribute("user")){
+        if(!model.containsAttribute("userRegisterBindingModel")){
             model.addAttribute("userRegisterBindingModel", new UserRegisterBindingModel());
+            model.addAttribute("incorrectPassword", false);
+            model.addAttribute("userExistError", false);
         }
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -53,15 +61,20 @@ public class UserController {
         return "redirect:/home";
     }
 
+
     @PostMapping("/register")
     public String registerUser(@Valid @ModelAttribute UserRegisterBindingModel userRegisterBindingModel,
                                BindingResult bindingResult,
                                RedirectAttributes redirectAttributes){
 
-        if(bindingResult.hasErrors() ||
-                !userRegisterBindingModel
-                        .getPassword()
-                        .equals(userRegisterBindingModel.getRepeatPassword())){
+        if(bindingResult.hasErrors() || !userRegisterBindingModel
+                .getPassword()
+                .equals(userRegisterBindingModel.getRepeatPassword())){
+
+            if (!userRegisterBindingModel.getPassword()
+                    .equals(userRegisterBindingModel.getRepeatPassword())){
+                redirectAttributes.addAttribute("incorrectPassword", true);
+            }
 
             redirectAttributes.addFlashAttribute("userRegisterBindingModel", userRegisterBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userRegisterBindingModel",
@@ -83,6 +96,15 @@ public class UserController {
 
         return "redirect:login";
     }
+    @PostMapping("/login-error")
+    public ModelAndView errorLogin(@ModelAttribute("username") String username,
+                                   RedirectAttributes redirectAttributes) {
+        ModelAndView modelAndView = new ModelAndView();
+        redirectAttributes.addFlashAttribute("error", true);
+        redirectAttributes.addFlashAttribute("username", username);
 
+        modelAndView.setViewName("redirect:/users/login");
+        return modelAndView;
 
+    }
 }

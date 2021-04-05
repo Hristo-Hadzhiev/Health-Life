@@ -1,6 +1,7 @@
 package health.model.service;
 
-import java.time.LocalDateTime;
+import org.hibernate.validator.constraints.Length;
+import javax.validation.constraints.Email;
 
 public class ContactUsServiceModel {
     private String username;
@@ -10,6 +11,7 @@ public class ContactUsServiceModel {
     public ContactUsServiceModel() {
     }
 
+    @Length(min = 3, message = "Length must be at least 3 chars.")
     public String getUsername() {
         return username;
     }
@@ -18,6 +20,7 @@ public class ContactUsServiceModel {
         this.username = username;
     }
 
+    @Email
     public String getEmail() {
         return email;
     }
@@ -26,6 +29,7 @@ public class ContactUsServiceModel {
         this.email = email;
     }
 
+    @Length(min = 10, message = "Message must be at least 10 chars.")
     public String getMessage() {
         return message;
     }

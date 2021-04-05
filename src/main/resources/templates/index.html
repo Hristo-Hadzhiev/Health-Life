@@ -1,16 +1,22 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <th:block th:include="~{/fragments/head}"></th:block>
+    <title>Home Page</title>
+    <th:block th:include="~{/fragments/head}">Head</th:block>
 
-    <title>Index Page</title>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"> </script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/css/index.css">
 
 </head>
 
-<body>
-
+<body >
 
 <nav class="navbar navbar-inverse" style="margin: 0">
     <div class="container-fluid">
@@ -24,23 +30,34 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/users/login"><span class="glyphicon glyphicon-log-in" style="float: left"></span>Login</a>
+                <li style="font-size: large"><a th:href="@{/users/login}"><span class="glyphicon glyphicon-log-in" style="float: left"></span>Login</a>
                 </li>
-                <li><a href="/users/register"><span class="glyphicon glyphicon-user"></span>Register</a></li>
+                <li style="font-size: large"><a th:href="@{/users/register}"><span class="glyphicon glyphicon-user"></span>Register</a></li>
             </ul>
         </div>
     </div>
 </nav>
+<h1 id="greeting">HOORAY</h1>
+<h1>Welcome to <strong style="color: #00cc00">Health Life</strong></h1>
+<!--    <a href="/users/login">LOGIN </a> or <a href="/users/register">REGISTER </a> account!-->
 
-<img id="indexImg" th:src="@{/images/{image}(image=${image})}" alt="" src=""/>
+<div class="container" >
+    <div class="carousel">
+        <div class="carousel__face"><span></span></div>
+        <div class="carousel__face"><span></span></div>
+        <div class="carousel__face"><span></span></div>
+        <div class="carousel__face"><span></span></div>
+        <div class="carousel__face"><span></span></div>
+        <div class="carousel__face"><span></span></div>
+        <div class="carousel__face"><span></span></div>
+        <div class="carousel__face"><span></span></div>
+        <div class="carousel__face"><span></span></div>
+    </div>
+</div>
 
-<!--<h2>-->
-<!--    "„Не се нуждаете от сребърна вилица, <br> за да ядете добра храна.“ – Пол Прюдон, кулинар"-->
-<!--</h2>-->
-
-
-<footer class="footer">
-    <th:block th:include="~{/fragments/footer}"></th:block>
+<footer>
+    <th:block th:include="~{/fragments/footer}">Footer</th:block>
 </footer>
 </body>
+
 </html>

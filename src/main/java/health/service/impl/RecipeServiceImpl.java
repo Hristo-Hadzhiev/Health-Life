@@ -4,14 +4,12 @@ import health.model.entity.Recipe;
 import health.model.entity.enums.RecipeEnum;
 import health.model.service.RecipeServiceModel;
 import health.model.view.RecipeViewModel;
-import health.model.view.UserViewModel;
 import health.repository.RecipeRepository;
 import health.service.RecipeService;
 import health.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -74,15 +72,14 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     public List<String> separateRecipe(String id) {
-        String recipe = Objects.requireNonNull(recipeRepository.findById(id).orElse(null)).getDescription();
-        List<String> separateRecipeSteps = Arrays.asList(recipe.split("\\."));
-        System.out.println();
-        return separateRecipeSteps;
-
+        String recipeProducts = Objects.requireNonNull(recipeRepository.findById(id).orElse(null)).getProducts();
+        return Arrays.asList(recipeProducts.split(" *[;] *"));
     }
 
-
-    public List<String> getProducts(String products) {
-        return new ArrayList<>(Arrays.asList(products.split(", ")));
+    @Override
+    public List<String> separateDescription(String id) {
+        String recipeProducts = Objects.requireNonNull(recipeRepository.findById(id).orElse(null)).getDescription();
+        return Arrays.asList(recipeProducts.split(" *[;] *"));
     }
+
 }

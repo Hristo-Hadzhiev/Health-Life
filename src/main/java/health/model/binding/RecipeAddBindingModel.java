@@ -14,7 +14,7 @@ public class RecipeAddBindingModel {
 
     private String name;
     private RecipeEnum typeOfRecipe;
-    private List<String> products;
+    private String products;
     private int cookingTime;
     private int calories;
     private String description;
@@ -42,11 +42,12 @@ public class RecipeAddBindingModel {
         this.typeOfRecipe = typeOfRecipe;
     }
 
-    public List<String> getProducts() {
+    @Length(min = 2, message = "Products length must be at least 2 characters.")
+    public String getProducts() {
         return products;
     }
 
-    public void setProducts(List<String> products) {
+    public void setProducts(String products) {
         this.products = products;
     }
 

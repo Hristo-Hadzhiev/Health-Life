@@ -19,7 +19,9 @@ public class HomeController {
 
     @GetMapping("/home")
     public String getHome(Model model){
-
+        model.addAttribute("firstImg", carouselService.firstImage());
+        model.addAttribute("secondImg", carouselService.secondImage());
+        model.addAttribute("thirdImg", carouselService.thirdImage());
         return "home";
     }
 
@@ -28,7 +30,6 @@ public class HomeController {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-            model.addAttribute("image", carouselService.image());
             return "index";
         }
         return "redirect:/home";

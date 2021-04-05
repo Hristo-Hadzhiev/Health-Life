@@ -31,6 +31,9 @@ public class RecipeController {
         if (!model.containsAttribute("recipeAddBindingModel")) {
             model.addAttribute("recipeAddBindingModel", new RecipeAddBindingModel());
         }
+        if(!model.containsAttribute("recipeExistError")){
+            model.addAttribute("recipeExistError", false);
+        }
 
         return "/recipes/add-recipe";
     }
@@ -39,9 +42,11 @@ public class RecipeController {
     public String addRecipe(@Valid @ModelAttribute RecipeAddBindingModel recipeAddBindingModel,
                             BindingResult bindingResult,
                             RedirectAttributes redirectAttributes) {
-
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("recipeAddBindingModel", recipeAddBindingModel);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.recipeAddBindingModel",
+                    bindingResult);
+
             return "redirect:add";
         }
 
@@ -88,7 +93,8 @@ public class RecipeController {
     public ModelAndView details(@PathVariable String id, ModelAndView modelAndView){
 
         modelAndView.addObject("item", this.recipeService.findById(id));
-        modelAndView.addObject("recipe", recipeService.separateRecipe(id));
+        modelAndView.addObject("recipeProducts", recipeService.separateRecipe(id));
+        modelAndView.addObject("recipeDescription", recipeService.separateDescription(id));
         modelAndView.setViewName("/recipes/recipe-details");
 
         return modelAndView;

@@ -2,39 +2,33 @@ package health.web;
 
 import health.model.entity.UserEntity;
 import health.repository.UserRepository;
-import health.service.impl.UserServiceImpl;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Objects;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders.logout;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 public class UserControllerTest {
 
     private UserEntity testUser;
+
+    @Mock
     private UserRepository mockedUserRepository;
 
     @BeforeEach
     public void setUp() {
-
         this.mockedUserRepository = Mockito.mock(UserRepository.class);
     }
 
@@ -59,23 +53,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void testPostUserRegisterPage() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders
-                .post("/users/register")
-                .param("username", "TestName")
-                .param("email", "test@mail.bg")
-                .param("password", "123123Test@")
-                .param("repeatPassword", "123123Test@")
-
-                .with(csrf()))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(mvcResult -> {
-                    assertEquals("redirect:login", Objects.requireNonNull(mvcResult.getModelAndView()).getViewName());
-                });
-    }
-
-    @Test
-    public void testPostUserRegisterPageWithWrongPassword() throws Exception {
+    public void testPostUserRegister() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                 .post("/users/register")
                 .param("username", "TestName")
@@ -85,7 +63,24 @@ public class UserControllerTest {
                 .with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(mvcResult -> {
-                    assertEquals("redirect:/users/register", Objects.requireNonNull(mvcResult.getModelAndView()).getViewName());
+                    "/users/login".equals(mvcResult.getModelAndView().getViewName());
+                });
+    }
+
+
+    @Test
+    public void testPostUserRegisterPageWithWrongPassword() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
+                .post("/users/register")
+                .param("username", "TestName")
+                .param("email", "test@mail.bg")
+                .param("password", "123123Test@")
+                .param("repeatPassword", "123123Test@2222")
+                .with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(mvcResult -> {
+                    System.out.println();
+                    "redirect:register".equals(mvcResult.getModelAndView().getViewName());
                 });
     }
 
@@ -97,8 +92,6 @@ public class UserControllerTest {
                 .andExpect(status().is4xxClientError());
 
     }
-
-
 
     @Test
     public void wrongRegisterPageShouldNotFound() throws Exception {

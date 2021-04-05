@@ -18,6 +18,7 @@ public class Diet extends BaseClass{
     private int likes;
 
 
+
     public Diet() {
     }
 
@@ -77,5 +78,6 @@ public class Diet extends BaseClass{
     public void setDescription(String description) {
         this.description = description;
     }
+
 
 }

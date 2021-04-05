@@ -18,4 +18,7 @@ public interface RecipeService {
     boolean recipeExists(String username);
 
     List<String> separateRecipe(String id);
+    List<String> separateDescription(String id);
+
+
 }

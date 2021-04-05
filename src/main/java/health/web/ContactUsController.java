@@ -32,7 +32,7 @@ public class ContactUsController {
             model.addAttribute("contactUsBindingModel", new ContactUsBindingModel());
         }
 
-        return "contact";
+        return "contactUs";
     }
 
     @PostMapping("/contactUs")

@@ -4,13 +4,13 @@ import health.model.entity.UserEntity;
 import health.model.entity.enums.RecipeEnum;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class RecipeViewModel {
 
     private String id;
     private String name;
     private RecipeEnum typeOfRecipe;
-    private String products;
     private int cookingTime;
     private int calories;
     private String description;
@@ -52,14 +52,6 @@ public class RecipeViewModel {
 
     public void setTypeOfRecipe(RecipeEnum typeOfRecipe) {
         this.typeOfRecipe = typeOfRecipe;
-    }
-
-    public String getProducts() {
-        return products;
-    }
-
-    public void setProducts(String products) {
-        this.products = products;
     }
 
     public int getCookingTime() {

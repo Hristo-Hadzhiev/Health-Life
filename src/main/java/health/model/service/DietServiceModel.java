@@ -1,10 +1,11 @@
 package health.model.service;
 
-import health.model.entity.Recipe;
 import health.model.entity.UserEntity;
 import health.model.entity.enums.DietTargetEnum;
-
-import java.util.List;
+import org.hibernate.validator.constraints.Length;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.validation.constraints.NotNull;
 
 public class DietServiceModel {
     private String name;
@@ -16,6 +17,8 @@ public class DietServiceModel {
     public DietServiceModel() {
     }
 
+    @NotNull
+    @Length(min = 3, message = "Diet name must be minimum 3 symbols.")
     public String getName() {
         return name;
     }
@@ -32,6 +35,8 @@ public class DietServiceModel {
         this.author = author;
     }
 
+    @NotNull
+    @Enumerated(EnumType.STRING)
     public DietTargetEnum getTarget() {
         return target;
     }
@@ -40,6 +45,7 @@ public class DietServiceModel {
         this.target = target;
     }
 
+    @Length(min = 10, message = "Description must be at least 10 chars.")
     public String getDescription() {
         return description;
     }

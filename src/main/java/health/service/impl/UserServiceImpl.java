@@ -22,7 +22,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -51,12 +50,19 @@ public class UserServiceImpl implements UserService {
 
             userRoleRepository.saveAll(List.of(rootAdminRole,adminRole, userRole));
 
+            UserEntity rootadmin = new UserEntity()
+                    .setUsername("rootadmin")
+                    .setPassword(passwordEncoder.encode("rootadmin"))
+                    .setEmail("rootadmin@abv.bg")
+
+                    .setRoles(List.of(rootAdminRole, adminRole, userRole));
+
             UserEntity admin = new UserEntity()
                     .setUsername("admin")
                     .setPassword(passwordEncoder.encode("admin"))
                     .setEmail("admin@abv.bg")
 
-                    .setRoles(List.of(rootAdminRole, adminRole, userRole));
+                    .setRoles(List.of(adminRole, userRole));
 
             UserEntity user1 = new UserEntity()
                     .setUsername("user")
@@ -83,6 +89,7 @@ public class UserServiceImpl implements UserService {
                     .setRoles(List.of(userRole));
 
 
+            userRepository.saveAndFlush(rootadmin);
             userRepository.saveAndFlush(admin);
             userRepository.saveAndFlush(user1);
             userRepository.saveAndFlush(user2);

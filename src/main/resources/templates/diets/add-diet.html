@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Add Diet</title>
     <th:block th:include="~{/fragments/head}"></th:block>
@@ -8,7 +8,8 @@
     <link rel="stylesheet" href="/css/nav.css">
 
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+          integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 
 </head>
 <body>
@@ -19,33 +20,57 @@
 
 <div class="row">
     <div id="left-column" class="column">
-        <div class="testbox">
-            <form th:object="${dietAddBindingModel}" id="add-form" th:action="@{/diets/add}" method="POST">
 
-            <div class="banner">
+        <div class="testbox">
+
+            <form th:object="${dietAddBindingModel}" id="add-form" th:action="@{/diets/add}" method="POST">
+                <div class="banner">
                 </div>
-                <h2>Добави своята диета!</h2>
+                <h2 th:unless="${dietExistError}">Добави своята диета!</h2>
+                <h2 th:if="${dietExistError}" style="color: red">Тази диета е добавена вече!</h2>
+
                 <div class="item">
-                    <p>Name</p>
+                    <small th:if="${#fields.hasErrors('name')}"
+                           th:errors="*{name}"
+                           style="color: #ff0000"></small>
                     <div class="name-item">
-                        <input  id="product_id"
-                                name="name" placeholder="Име на диетата" required=
-                                type="text">
-                        <select  id="targetOfDiet" name="target">
+                        <!--                        required minlength="3" maxlength="20"-->
+                        <input th:field="*{name}"
+                               th:errorclass="bg-danger"
+                               id="product_id"
+                               name="name"
+                               placeholder="Име на диетата"
+                               type="text">
+                        <select th:field="*{target}"
+                                th:errorclass="bg-danger"
+                                required
+                                id="targetOfDiet"
+                                name="target">
                             <option selected value="">Цел на диета!</option>
-                            <option th:each="t : ${T(health.model.entity.enums.DietTargetEnum).values()}"
-                                    th:text="${t}" th:value="${t}">Target</option>
+                            <option selected th:each="t : ${T(health.model.entity.enums.DietTargetEnum).values()}"
+                                    th:text="${t}" th:value="${t}">Target
+                            </option>
                         </select>
                     </div>
                 </div>
-                <textarea id="recipe_description" name="description" placeholder="Опиши подробно диетата!"></textarea>
+                <small th:if="${#fields.hasErrors('description')}"
+                       th:errors="*{description}"
+                       style="color: #ff0000"></small>
+                <textarea
+                        th:field="*{description}"
+                        th:errorclass="bg-danger"
+                        id="recipe_description"
+                        name="description"
+                        placeholder="Опиши подробно диетата!">
+
+                </textarea>
                 <div class="btn-block">
                     <button type="submit" href="/">Добави диета</button>
                 </div>
             </form>
         </div>
     </div>
-    <div id="right-column" class="column" >
+    <div id="right-column" class="column">
 
     </div>
 </div>

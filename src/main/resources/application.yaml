@@ -21,6 +21,7 @@ spring:
 
 carousel:
 
-  images: index2.jpg, index3.jpg, index4.jpg
+  images:
+    home-c1.jpg, home-c2.jpg, home-c3.jpg, home-c4.jpg, home-c5.jpg,home-c6.jpg, home-c7.jpg
   refresh-cron: "* 0 8 * * 1-5"
 #  refresh-cron: "*/10 * * * * *"

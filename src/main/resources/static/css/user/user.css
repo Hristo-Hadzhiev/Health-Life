@@ -5,6 +5,7 @@
 body {
     font-family: "Poppins", sans-serif;
     height: 100vh;
+    background-image: url('/images/user/authentication.jpg');
 }
 
 a {
@@ -240,9 +241,6 @@ input[type=text]::placeholder,input[type=password]::placeholder,input[type=email
 .underlineHover:hover:after{
     width: 100%;
 }
-
-
-
 /* OTHERS */
 
 *:focus {
@@ -256,14 +254,19 @@ input[type=text]::placeholder,input[type=password]::placeholder,input[type=email
 * {
     box-sizing: border-box;
 }
-input:valid{
+input:valid, textarea:valid{
     border: lawngreen solid 2px;
 }
 
-input:invalid{
+input:invalid, textarea:invalid{
     border: red solid 2px;
 }
 
-input:invalid:required{
+input:invalid:required, textarea:invalid:required{
     background-image: linear-gradient(to right, #D3D3D3, #dc3545);
+}
+
+.errors{
+    font-size: 14px;
+    color: red;
 }

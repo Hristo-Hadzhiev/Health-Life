@@ -5,7 +5,7 @@
 <head>
     <title> Login Page Website</title>
     <th:block th:include="~{/fragments/head}"></th:block>
-    <link rel="stylesheet" href="/css/user/login.css">
+    <link rel="stylesheet" href="/css/user/user.css">
 </head>
 
 <body id="user">
@@ -20,38 +20,51 @@
             <!-- <a class="navbar-brand" href="#">Bet BG</a> -->
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class="nav navbar-nav navbar-right">
-                <li><a  id="home" href="/"><span class="glyphicon glyphicon-home" ></span>Home</a></li>
-                <li ><a href="/users/login"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
+            <ul class="nav navbar-nav">
+                <li style="font-size: large"><a id="home" th:href="@{/}">
+                    <span style="margin-right: 3px" class="glyphicon glyphicon-home"></span>Home</a>
+                </li>
+                <li style="margin-left: 1260px; font-size: large"><a th:href="@{/users/login}">
+                    <span style="margin-right: 3px" class="glyphicon glyphicon-log-in"></span>Login</a>
+                </li>
             </ul>
         </div>
     </div>
 </nav>
 <div class="wrapper">
     <div id="formContent">
+
         <!-- Tabs Titles -->
-        <h2 style="padding-left: 10%" class="inactive underlineHover"> <a th:href="@{/users/login}">Sign In </a></h2>
+        <h2 style="padding-left: 10%" class="inactive underlineHover"><a th:href="@{/users/login}">Sign In </a></h2>
         <h2 style="padding-left: 8%" class="active"> Sign Up </h2>
         <!-- Login Form -->
         <form th:action="@{/users/register}" th:object="${userRegisterBindingModel}" method="POST">
-<!--            required minlength="3" maxlength="20"-->
-            <div class="form-group">
-                <label for="login">
-                    <input th:field="*{username}"
-                           th:errorclass="is-invalid"
-                           type="text"
-                           id="login"
 
+            <!--            required minlength="3" maxlength="20"-->
+            <div class="form-group">
+                <label for="register">
+
+                    <small class="errors" th:if="${incorrectPassword}">Passwords do not much</small>
+                    <small class="errors" th:if="${userExistError}">Username or email are already used</small>
+
+                    <small class="errors" th:each="e : ${#fields.errors('username')}" th:text="${e}"
+                           style="background-color: #ff0000"></small>
+                    <input th:field="*{username}"
+                           th:errorclass="bg-danger"
+                           required minlength="3" maxlength="20"
+                           type="text"
+                           id="register"
                            class="fadeIn first"
                            name="username"
                            placeholder="Username">
 
                 </label>
-                <small  th:errors="*{username}"
-                       class="invalid-feedback alert alert-warning"> Incorrect username! </small>
+
             </div>
 
             <label for="email">
+                <small th:each="e : ${#fields.errors('email')}" th:text="${e}"
+                       style="background-color: #ff0000"></small>
                 <input th:field="*{email}"
                        th:errorclass="bg-danger"
                        type="email"
@@ -60,10 +73,11 @@
                        class="fadeIn second"
                        name="email"
                        placeholder="Email">
-                <small  th:errors="*{email}" class="text-danger">Incorrect username!</small>
             </label>
 
             <label for="password">
+                <small th:each="e : ${#fields.errors('password')}" th:text="${e}"
+                       style="background-color: #ff0000">Incorrect password</small>
                 <input th:field="*{password}"
                        th:errorclass="bg-danger"
                        type="password" id="password"
@@ -71,10 +85,11 @@
                        class="fadeIn third"
                        name="password"
                        placeholder="Password">
-                <small th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger">Incorrect username!</small>
             </label>
 
             <label for="repeatPassword">
+                <small th:each="e : ${#fields.errors('repeatPassword')}" th:text="${e}"
+                       style="background-color: #ff0000">Incorrect repeatPassword</small>
                 <input th:field="*{repeatPassword}"
                        th:errorclass="bg-danger"
                        type="password"
@@ -83,7 +98,6 @@
                        class="fadeIn fourth"
                        name="repeatPassword"
                        placeholder="Confirm password">
-                <small th:if="${#fields.hasErrors('repeatPassword')}" th:errors="*{password}" class="text-danger">Incorrect username!</small>
             </label>
 
             <input type="submit" class="fadeIn fourth" value="Register">

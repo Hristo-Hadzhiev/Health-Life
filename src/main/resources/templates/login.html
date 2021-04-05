@@ -5,7 +5,7 @@
 <head>
     <title> Login Page Website</title>
     <th:block th:include="~{/fragments/head}"></th:block>
-    <link rel="stylesheet" href="/css/user/login.css">
+    <link rel="stylesheet" href="/css/user/user.css">
 </head>
 
 <body id="user">
@@ -20,9 +20,13 @@
             <!-- <a class="navbar-brand" href="#">Bet BG</a> -->
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class="nav navbar-nav navbar-right">
-                <li><a id="home" href="/"><span class="glyphicon glyphicon-home"></span>Home</a></li>
-                <li><a href="/users/register"><span class="glyphicon glyphicon-user"></span>Register</a></li>
+            <ul class="nav navbar-nav">
+                <li style="font-size: large" ><a id="home" th:href="@{/}">
+                    <span style="margin-right: 3px" class="glyphicon glyphicon-home"></span>Home</a>
+                </li>
+                <li style="margin-left: 1250px; font-size: large"><a th:href="@{/users/register}">
+                    <span style="margin-right: 3px" class="glyphicon glyphicon-user"></span>Register</a>
+                </li>
             </ul>
         </div>
     </div>
@@ -38,14 +42,15 @@
         <form th:action="@{/users/login}" method="POST">
 
             <label for="inputUsername">
+                <small class="errors" th:if="${error}"> Incorrect username or password.</small>
 
-                <input type="text"
-                       id="inputUsername"
-                       th:value="${username}"
-                       required minlength="3" maxlength="20"
-                       class="fadeIn second"
-                       name="username"
-                       placeholder="Username">
+                <input
+                        type="text"
+                        id="inputUsername"
+                        required minlength="3" maxlength="20"
+                        class="fadeIn second"
+                        name="username"
+                        placeholder="Username">
             </label>
             <label for="password">
                 <input type="password"
@@ -60,10 +65,6 @@
 
         </form>
 
-        <!--        &lt;!&ndash; Remind Passowrd &ndash;&gt;-->
-        <!--        <div id="formFooter">-->
-        <!--            <a class="underlineHover" href="#">Forgot Password?</a>-->
-        <!--        </div>-->
 
     </div>
 </div>

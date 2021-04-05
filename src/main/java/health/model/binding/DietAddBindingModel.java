@@ -17,7 +17,7 @@ public class DietAddBindingModel {
     }
 
     @NotNull
-    @Length(min = 3, max = 20, message = "Diet name must be 2 and 20 characters inclusive")
+    @Length(min = 3, message = "Diet name must be minimum 3 symbols.")
     public String getName() {
         return name;
     }
@@ -36,7 +36,7 @@ public class DietAddBindingModel {
         this.target = target;
     }
 
-    @Length(min = 10, message = "Length must be at lest 10 chars.")
+    @Length(min = 10, message = "Description must be at least 10 chars.")
     public String getDescription() {
         return description;
     }

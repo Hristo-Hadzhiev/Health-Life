@@ -2,5 +2,7 @@ package health.service;
 
 public interface CarouselService {
 
-    String image();
+    String firstImage();
+    String secondImage();
+    String thirdImage();
 }
