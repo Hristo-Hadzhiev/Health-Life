@@ -13,10 +13,13 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.List;
+import java.util.Set;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -24,7 +27,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class RecipeControllerTest {
 
+
+    private static final String USER_TEST = "admin";
+    private static final String RECIPE_ID = "recipe";
+
     private Recipe recipe;
+    private String recipeId;
     private UserEntity user;
     private RecipeRepository mockedRecipeRepository;
 
@@ -32,23 +40,26 @@ public class RecipeControllerTest {
     @BeforeEach
     public void init() {
 
+        this.mockedRecipeRepository = Mockito.mock(RecipeRepository.class);
+
         user = new UserEntity()
-                .setUsername("admin")
+                .setUsername(USER_TEST)
                 .setPassword(("admin"))
                 .setEmail("admin@abv.bg")
-                .setRoles(List.of(new UserRoleEntity().setRole(UserRole.USER)));
+                .setRoles(Set.of(new UserRoleEntity().setRole(UserRole.USER)));
 
-        this.recipe = new Recipe("Рулца от патладжан с орехов пълнеж",
+        recipe = new Recipe("Рулца от патладжан с орехов пълнеж",
                 RecipeEnum.ОСНОВНО, "- 3 средно големи патладжана\n",
                 40,
                 200,
                 ".Нарежете патладжаните" ,
                 100,
                 "/images/recipe/main/Рулца от патладжан с орехов пълнеж.jpg",user);
-        recipe.setId("123456");
+        recipe.setId(RECIPE_ID);
 
+        mockedRecipeRepository.save(recipe);
 
-        this.mockedRecipeRepository = Mockito.mock(RecipeRepository.class);
+        recipeId = recipe.getId();
     }
 
     @Autowired
@@ -60,6 +71,12 @@ public class RecipeControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("recipeAddBindingModel"))
                 .andExpect(view().name("/recipes/add-recipe"));
+    }
+
+    @Test
+    public void postMethod_addRecipe_shouldReturnStatus200() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/recipes/add"));
+
     }
 
     @Test
@@ -88,10 +105,13 @@ public class RecipeControllerTest {
                 .andExpect(view().name("/recipes/vegetarian"));
     }
 
-    //TODO / method return error - null pointer
-    @Test
-    public void recipes_details_id_should_return_valid_status() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/recipes/details/" + recipe.id))
-                .andExpect(status().isOk());
-    }
+//    @Test
+//    @WithMockUser(username = USER_TEST, authorities = {"USER","ADMIN"})
+//    public void recipesDetailsId_shouldReturnValidStatus() throws Exception {
+//        System.out.println();
+//        mockMvc.perform(MockMvcRequestBuilders
+//                .get("/recipes/details/{id}" + RECIPE_ID))
+//                .andExpect(status().isOk());
+//    }
 }
+

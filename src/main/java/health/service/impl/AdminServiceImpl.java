@@ -3,14 +3,15 @@ package health.service.impl;
 import health.model.entity.UserEntity;
 import health.model.entity.UserRoleEntity;
 import health.model.entity.enums.UserRole;
-import health.repository.DietRepository;
-import health.repository.RecipeRepository;
 import health.repository.UserRepository;
 import health.repository.UserRoleRepository;
-import health.service.AdminService;
+import health.service.*;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -18,14 +19,20 @@ public class AdminServiceImpl implements AdminService {
 
     private final UserRepository userRepository;
     private final UserRoleRepository userRoleRepository;
-    private final RecipeRepository recipeRepository;
-    private final DietRepository dietRepository;
+    private final RecipeService recipeService;
+    private final DietService dietService;
+    private final TrainingService trainingService;
+    private final UserService userService;
 
-    public AdminServiceImpl(UserRepository userRepository, UserRoleRepository userRoleRepository, RecipeRepository recipeRepository, DietRepository dietRepository) {
+    public AdminServiceImpl(UserRepository userRepository, UserRoleRepository userRoleRepository,
+                            RecipeService recipeService, DietService dietService,
+                            TrainingService trainingService, UserService userService) {
         this.userRepository = userRepository;
         this.userRoleRepository = userRoleRepository;
-        this.recipeRepository = recipeRepository;
-        this.dietRepository = dietRepository;
+        this.recipeService = recipeService;
+        this.dietService = dietService;
+        this.trainingService = trainingService;
+        this.userService = userService;
     }
 
     @Override
@@ -34,14 +41,14 @@ public class AdminServiceImpl implements AdminService {
         UserEntity user = userRepository.findById(id)
                 .orElse(null);
         assert user != null;
-        List<UserRoleEntity> roles = user.getRoles();
+        Set<UserRoleEntity> roles = user.getRoles();
 
         if(roles.size()==1){
 
             UserRoleEntity adminRole = userRoleRepository.findByRole(UserRole.ADMIN);
             UserRoleEntity userRole = userRoleRepository.findByRole(UserRole.USER);
 
-            user.setRoles(List.of(adminRole, userRole));
+            user.setRoles(Set.of(adminRole,userRole));
             userRepository.save(user);
         }
 
@@ -53,13 +60,13 @@ public class AdminServiceImpl implements AdminService {
         UserEntity user = userRepository.findById(id)
                 .orElse(null);
         assert user != null;
-        List<UserRoleEntity> roles = user.getRoles();
+        Set<UserRoleEntity> roles = user.getRoles();
 
         if(roles.size()==2){
 
             UserRoleEntity userRole = userRoleRepository.findByRole(UserRole.USER);
 
-            user.setRoles(List.of( userRole));
+            user.setRoles(Set.of(userRole));
             userRepository.save(user);
         }
 
@@ -67,17 +74,22 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void deleteUser(String id) {
-        userRepository.deleteById(id);
+        userService.deleteById(id);
     }
 
     @Override
     public void deleteRecipe(String id) {
-        recipeRepository.deleteById(id);
+        recipeService.deleteById(id);
     }
 
     @Override
     public void deleteDiet(String id) {
-        dietRepository.deleteById(id);
+        dietService.deleteById(id);
+    }
+
+    @Override
+    public void deleteTraining(String id) {
+        trainingService.deleteById(id);
     }
 
 }

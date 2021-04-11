@@ -26,23 +26,27 @@
 
         <li><a href="/recipes/add">Създай рецепта</a></li>
         <li><a href="/diets/add">Добави диета</a></li>
+        <li><a href="/trainings/add">Добави тренировка</a></li>
 
-        <li><a href="/contactUs">Свържи се с нас</a></li>
+        <li><a href="/plans/getPlan" class="btn btn-success btn-sm" >Вземи план</a></li>
 <!--            <a class="btn btn-success btn-sm"></a></li>-->
-        <li style="margin-left: 500px" sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown">
-            <a  href="javascript:void(0)" class="btn btn-info btn-sm">Админ панел
+        <li sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown">
+            <a  href="javascript:void(0)" class="btn btn-danger btn-sm">Админ панел
                 <i class="arrow down"></i>
             </a>
             <div class="dropdown-content">
                 <a  sec:authorize="hasRole('ROLE_ROOT_ADMIN')" href="/private/all-users">Потребители</a>
                 <a href="/private/all-recipes">Рецепти</a>
                 <a href="/private/all-diets">Диети</a>
+                <a href="/private/all-trainings">Тренировки</a>
             </div>
         </li>
+        <li><a href="/contactUs" class="btn btn-info btn-sm glyphicon glyphicon-envelope">Контакт</a></li>
+        <li ><a href="/users/profile" class="btn btn-warning btn-sm glyphicon glyphicon-user" >Профил</a></li>
 
         <li style="padding-top: 5px; padding-right: 20px ; float: right">
             <form th:action="@{/logout}" method="POST">
-                <button type="submit" class="btn btn-danger btn-sm glyphicon glyphicon-log-out" style="background: #dc3545; width: 80px" >
+                <button type="submit" class="btn btn-info btn-sm glyphicon glyphicon-log-out" style="background: #dc3545; width: 80px" >
                     Logout
                 </button>
 

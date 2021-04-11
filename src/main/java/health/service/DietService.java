@@ -1,7 +1,7 @@
 package health.service;
 
 import health.model.entity.Diet;
-import health.model.entity.enums.DietTargetEnum;
+import health.model.entity.enums.TargetEnum;
 import health.model.service.DietServiceModel;
 import health.model.view.DietViewModel;
 
@@ -15,9 +15,11 @@ public interface DietService {
 
     DietViewModel findById(String id);
 
-    List<DietViewModel> findAllDietsByTarget(DietTargetEnum losingWeight);
+    List<DietViewModel> findAllDietsByTarget(TargetEnum losingWeight);
 
     List<DietViewModel> findAllDiets();
 
     boolean dietExists(String name);
+
+    void deleteById(String id);
 }

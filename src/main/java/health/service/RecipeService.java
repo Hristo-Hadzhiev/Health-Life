@@ -1,6 +1,7 @@
 package health.service;
 
 import health.model.entity.Recipe;
+import health.model.entity.enums.TargetEnum;
 import health.model.service.RecipeServiceModel;
 import health.model.view.RecipeViewModel;
 
@@ -18,7 +19,11 @@ public interface RecipeService {
     boolean recipeExists(String username);
 
     List<String> separateRecipe(String id);
+
     List<String> separateDescription(String id);
 
+    void deleteById(String id);
+
+    TargetEnum findRecipeTypeByCalories(int cal);
 
 }

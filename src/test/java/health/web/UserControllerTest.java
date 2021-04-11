@@ -44,6 +44,15 @@ public class UserControllerTest {
 
     }
 
+//    @WithMockUser(username = "ivan")
+//    @Test
+//    public void testProfilePage() throws Exception {
+//        mockMvc.perform(get("/users/profile"))
+//                .andExpect(status().isOk())
+//                .andExpect(view().name("profile"));
+//
+//    }
+
     @Test
     public void testGetUserRegisterPage() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/users/register"))

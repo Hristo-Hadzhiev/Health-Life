@@ -1,0 +1,44 @@
+body {
+    margin: 0;
+    text-align: center;
+    font-family: sans-serif;
+    color: #fefefe;
+    background-image: url('/images/train/training-details.jpg');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-color: #D3D3D3;
+}
+
+h1 {
+    font-size: 52px;
+    text-shadow: -1px -1px #0c0, 1px 1px #060, -3px 0 4px #000;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #3e7dec;
+    padding: 16px;
+    font-weight: lighter;
+    -moz-box-shadow: 2px 2px 6px #888;
+    -webkit-box-shadow: 2px 2px 6px #888;
+    box-shadow: 2px 2px 6px #888;
+    text-align: center;
+    display: block;
+    margin: 16px;
+}
+h2 {
+    float: left;
+    color: crimson;
+}
+.w3-third {
+    background-color: azure;
+    width: 50%;
+    height: 496px
+}
+.w3-twothird{
+    width: 50%;
+    background-color: ghostwhite;
+}
+p{
+    color: black;
+    font-size: large;
+}

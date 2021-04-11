@@ -1,9 +1,8 @@
 package health.model.binding;
 
-import health.model.entity.enums.DietTargetEnum;
+import health.model.entity.enums.TargetEnum;
 import org.hibernate.validator.constraints.Length;
 
-import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
@@ -11,7 +10,7 @@ import javax.validation.constraints.NotNull;
 public class DietAddBindingModel {
     private String name;
     private String description;
-    private DietTargetEnum target;
+    private TargetEnum target;
 
     public DietAddBindingModel() {
     }
@@ -28,11 +27,11 @@ public class DietAddBindingModel {
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    public DietTargetEnum getTarget() {
+    public TargetEnum getTarget() {
         return target;
     }
 
-    public void setTarget(DietTargetEnum target) {
+    public void setTarget(TargetEnum target) {
         this.target = target;
     }
 

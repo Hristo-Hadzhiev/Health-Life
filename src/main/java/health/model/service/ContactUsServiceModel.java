@@ -3,6 +3,7 @@ package health.model.service;
 import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.Email;
 
+
 public class ContactUsServiceModel {
     private String username;
     private String email;

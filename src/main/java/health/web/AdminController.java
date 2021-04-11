@@ -1,10 +1,7 @@
 package health.web;
 
 import health.repository.UserRepository;
-import health.service.AdminService;
-import health.service.DietService;
-import health.service.RecipeService;
-import health.service.UserService;
+import health.service.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -23,14 +20,16 @@ public class AdminController {
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
     private final DietService dietService;
+    private final TrainingService trainingService;
 
-    public AdminController(UserService userService, AdminService adminService, RecipeService recipeService, UserRepository userRepository, ModelMapper modelMapper, DietService dietService) {
+    public AdminController(UserService userService, AdminService adminService, RecipeService recipeService, UserRepository userRepository, ModelMapper modelMapper, DietService dietService, TrainingService trainingService) {
         this.userService = userService;
         this.adminService = adminService;
         this.recipeService = recipeService;
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
         this.dietService = dietService;
+        this.trainingService = trainingService;
     }
 
     @GetMapping("/all-users")
@@ -99,24 +98,20 @@ public class AdminController {
         return "redirect:/private/all-diets";
     }
 
+    @GetMapping("/all-trainings")
+    public String getAllTrainings(Model model){
 
-    /* Развиване на Едит форма, от която всеки админ да има възможнсот
-     да редактира данните на всички юзери. */
+        model.addAttribute("allTrainings", trainingService.findAllTrainings());
 
-//    @GetMapping("/edit/{id}")
-//    public String getEditUser(@PathVariable String id,  Model model){
-//        model.addAttribute("userInfo", userService.findById(id));
-//
-//        return "/admin/user-edit";
-//    }
-//
-//    @PostMapping("/edit")
-//    public String changeUserInfo(@ModelAttribute UserEditBindingModel userEditBindingModel,
-//                                 BindingResult bindingResult,
-//                                 RedirectAttributes redirectAttributes){
-//        System.out.println();
-//
-//
-//        return "/admin/user-edit";
-//    }
+        return "/admin/trainings";
+    }
+
+    @GetMapping("/delete/training/{id}")
+    public String deleteTraining(@PathVariable String id){
+
+        adminService.deleteTraining(id);
+
+        return "redirect:/private/all-trainings";
+    }
+
 }

@@ -1,11 +1,9 @@
 package health.model.entity;
 
-import health.model.entity.enums.DietTargetEnum;
+import health.model.entity.enums.TargetEnum;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
-import java.util.List;
 
 @Entity
 @Table(name="diets")
@@ -13,7 +11,7 @@ public class Diet extends BaseClass{
 
     private String name;
     private UserEntity author;
-    private DietTargetEnum target;
+    private TargetEnum target;
     private String description;
     private int likes;
 
@@ -22,7 +20,7 @@ public class Diet extends BaseClass{
     public Diet() {
     }
 
-    public Diet(String name, UserEntity author, DietTargetEnum target, String description, int likes) {
+    public Diet(String name, UserEntity author, TargetEnum target, String description, int likes) {
         this.name = name;
         this.author = author;
         this.target = target;
@@ -51,11 +49,11 @@ public class Diet extends BaseClass{
     }
 
     @Enumerated(EnumType.STRING)
-    public DietTargetEnum getTarget() {
+    public TargetEnum getTarget() {
         return target;
     }
 
-    public Diet setTarget(DietTargetEnum target) {
+    public Diet setTarget(TargetEnum target) {
         this.target = target;
         return this;
     }

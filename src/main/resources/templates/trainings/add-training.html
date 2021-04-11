@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Diet</title>
+    <th:block th:include="~{/fragments/head}"></th:block>
+
+    <link rel="stylesheet" href="/static/css/training/add-training.css/trainings/add-training.css">
+    <link rel="stylesheet" href="/css/training/add-training.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+          integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+</head>
+<body>
+
+<nav>
+    <th:block th:include="~{/fragments/nav-user}"></th:block>
+</nav>
+
+<div class="row">
+    <div id="left-column" class="column">
+
+        <div class="testbox">
+
+            <form th:object="${train}" id="add-form" th:action="@{/trainings/add}" method="POST">
+                <div class="banner">
+                </div>
+                <h2 th:unless="${trainExistError}">Добави своята тренировка!</h2>
+                <h2 th:if="${trainExistError}" style="color: red">Тази тренировка е добавена вече!</h2>
+
+                <div class="item">
+                    <small th:if="${#fields.hasErrors('trainingName')}"
+                           th:errors="*{trainingName}"
+                           style="color: #ff0000"></small>
+                    <div class="name-item">
+                        <!--                        required minlength="3" maxlength="20"-->
+                        <input th:field="*{trainingName}"
+                               th:errorclass="bg-danger"
+                               id="product_id"
+                               name="name"
+                               placeholder="Име на тренировка"
+                               type="text">
+                        <select th:field="*{target}"
+                                th:errorclass="bg-danger"
+                                required
+                                id="targetOfDiet"
+                                name="target">
+                            <option selected value="">Цел на тренировка!</option>
+                            <option selected th:each="t : ${T(health.model.entity.enums.TargetEnum).values()}"
+                                    th:text="${t}" th:value="${t}">Target
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <small th:if="${#fields.hasErrors('description')}"
+                       th:errors="*{description}"
+                       style="color: #ff0000"></small>
+                <textarea
+                        th:field="*{description}"
+                        th:errorclass="bg-danger"
+                        id="recipe_description"
+                        name="description"
+                        placeholder="Опиши подробно тренировката!">
+
+                </textarea>
+                <div class="btn-block">
+                    <button type="submit" href="/">Добави</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="right-column" class="column">
+
+    </div>
+</div>
+<th:block th:include="~{/fragments/footer}"></th:block>
+
+</body>
+</html>

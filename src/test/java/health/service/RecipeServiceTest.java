@@ -4,6 +4,7 @@ import health.model.entity.Recipe;
 import health.model.entity.UserEntity;
 import health.model.entity.UserRoleEntity;
 import health.model.entity.enums.RecipeEnum;
+import health.model.entity.enums.TargetEnum;
 import health.model.entity.enums.UserRole;
 import health.model.view.RecipeViewModel;
 import health.repository.RecipeRepository;
@@ -12,30 +13,26 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.mockito.Mockito.when;
+import java.util.*;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
 public class RecipeServiceTest {
 
-    @InjectMocks
+    @Mock
     private RecipeService recipeService;
 
     @Mock
-    private RecipeRepository mockRecipeRepository;
+    private RecipeRepository recipeRepository;
 
     @Mock
     private UserService userService;
@@ -50,40 +47,37 @@ public class RecipeServiceTest {
     @BeforeEach
     public void setup() throws IOException {
 
-        userEntity = this.getUserEntity();
-        recipe = this.getRecipe(userEntity);
+        userEntity = this.getCreatedUsers().get(0);
+        recipe = this.getRecipes().get(0);
         recipeViewModel = this.getRecipeViewModel(recipe);
 
-        recipeService = new RecipeServiceImpl(mockRecipeRepository,
+        recipeService = new RecipeServiceImpl(recipeRepository,
                 modelMapper, userService);
     }
 
-    @Test
-    public void testGetAllRecipes() {
+    //Create List with users
+    public List<UserEntity> getCreatedUsers() {
 
-        when(recipeService.findAllRecipes()).thenReturn(List.of(recipeViewModel));
-        System.out.println();
-        List<RecipeViewModel> recipeViewModels = recipeService.findAllRecipes();
-        RecipeViewModel actualDto = recipeViewModels.get(0);
+        UserEntity firstUser = new UserEntity();
+        firstUser.setId("1234");
+        firstUser.setUsername("pesho");
+        firstUser.setEmail("pesho@abv.bg");
+        firstUser.setPassword("pesho");
+        firstUser.setRoles(getUserRoleEntity());
 
-        Assertions.assertEquals(recipeViewModel.getName(), actualDto.getName());
-        Assertions.assertEquals(recipeViewModel.getName(), actualDto.getName());
+        UserEntity secondUser = new UserEntity();
+        secondUser.setId("2345");
+        secondUser.setUsername("gosho");
+        secondUser.setEmail("gosho@abv.bg");
+        secondUser.setPassword("gosho");
+        secondUser.setRoles(getUserRoleEntity());
 
+        return new ArrayList<>(List.of(firstUser, secondUser));
     }
 
-    public UserEntity getUserEntity() {
-        UserEntity user = new UserEntity();
-        user.setUsername("pesho");
-        user.setEmail("pesho@abv.bg");
-        user.setPassword("pesho");
-        user.setRoles(getUserRoleEntity());
-        user.setId("user");
-
-        return user;
-    }
-
-    public List<UserRoleEntity> getUserRoleEntity() {
-        List<UserRoleEntity> userRoles = new ArrayList<>();
+    // Create Set with userRoles
+    public Set<UserRoleEntity> getUserRoleEntity() {
+        Set<UserRoleEntity> userRoles = new HashSet<>();
 
         UserRoleEntity roleUser = new UserRoleEntity();
         roleUser.setRole(UserRole.USER);
@@ -98,27 +92,117 @@ public class RecipeServiceTest {
         return userRoles;
     }
 
-    public Recipe getRecipe(UserEntity userEntity) {
-        Recipe recipe = new Recipe();
+    // Create List with Recipes
+    public List<Recipe> getRecipes() {
+        UserEntity user = getCreatedUsers().get(0);
+        Recipe first = new Recipe();
+        Recipe second = new Recipe();
 
-        recipe.setName("Сурови топчета с малини");
-        recipe.setTypeOfRecipe(RecipeEnum.ДЕСЕРТ);
-        recipe.setCreatedDate(LocalDateTime.now());
-        recipe.setCalories(100);
-        recipe.setCookingTime(100);
-        recipe.setLikes(100);
-        recipe.setImage("No image");
-        recipe.setDescription("This is only for test");
-        recipe.setProducts("No available products");
-        recipe.setAuthor(userEntity);
-        recipe.setId("recipe");
+        first.setName("Сурови топчета с малини");
+        first.setTypeOfRecipe(RecipeEnum.ДЕСЕРТ);
+        first.setCreatedDate(LocalDateTime.now());
+        first.setCalories(100);
+        first.setCookingTime(100);
+        first.setLikes(100);
+        first.setImage("No image");
+        first.setDescription("This is only for test");
+        first.setProducts("prod1; prod2");
+        second.setTarget(TargetEnum.ОТСЛАБВАНЕ);
+        first.setAuthor(user);
+        first.setId("first");
 
-        return recipe;
+        second.setName("Печени топчета с малини");
+        second.setTypeOfRecipe(RecipeEnum.ОСНОВНО);
+        second.setCreatedDate(LocalDateTime.now());
+        second.setCalories(222);
+        second.setCookingTime(222);
+        second.setLikes(102220);
+        second.setImage("No image");
+        second.setDescription("Step1; Step2");
+        second.setProducts("No available products");
+        second.setTarget(TargetEnum.НАПЪЛНЯВАНЕ);
+        second.setAuthor(user);
+        second.setId("second");
+
+        return new ArrayList<>(List.of(first, second));
     }
 
+    //Create View Model - Recipe
     public RecipeViewModel getRecipeViewModel(Recipe recipe) {
         return modelMapper
                 .map(recipe, RecipeViewModel.class);
     }
 
+    //TODO Check later
+//    @Test
+//    void testFindRecipesByType(){
+//
+//        Recipe recipe = getRecipes().get(0);
+//
+//        Mockito.when(recipeRepository.findAllByTypeOfRecipe(RecipeEnum.valueOf("ДЕССЕРТ"))).thenReturn(List.of(recipe));
+//        Assertions.assertEquals(1, recipeService.findRecipesByType("ДЕССЕРТ").size());
+//    }
+
+    @Test
+    void testFindById(){
+        Recipe recipe = getRecipes().get(0);
+
+        System.out.println();
+
+        Mockito.when(recipeRepository.findById("first")).thenReturn(Optional.of(recipe));
+        Assertions.assertEquals(recipeService
+                .findById("first")
+                .getName(), modelMapper
+                .map(recipe, RecipeViewModel.class)
+                .getName());
+    }
+
+   @Test
+   void testFindAllRecipes(){
+       Recipe first = getRecipes().get(0);
+       Recipe second = getRecipes().get(1);
+
+       List<RecipeViewModel> recipeViewModels = new ArrayList<>();
+       recipeViewModels.add(this.modelMapper.map(first, RecipeViewModel.class));
+       recipeViewModels.add(this.modelMapper.map(second, RecipeViewModel.class));
+
+       Mockito.when(recipeRepository.findAll()).thenReturn(List.of(first, second));
+       Assertions.assertEquals(2, recipeService.findAllRecipes().size());
+   }
+    @Test
+    void testRecipeExist(){
+        Recipe first = getRecipes().get(0);
+
+        Mockito.when(recipeRepository.findByName("Сурови топчета с малини")).thenReturn(Optional.ofNullable(first));
+        Assertions.assertTrue(recipeService.recipeExists("Сурови топчета с малини"));
+    }
+
+
+    @Test
+    void deleteById(){
+        recipeService.deleteById("id");
+        Mockito.verify(recipeRepository).deleteById("id");
+    }
+
+//    @Test
+//    void testSeparateRecipe(){
+//        Recipe first = getRecipes().get(0);
+//
+//        Mockito.when(recipeRepository.).thenReturn(Optional.ofNullable(first));
+//        Assertions.assertEquals(recipeService.separateRecipe("id"), List.of("prod1", "prod2"));
+//
+//    }
+
+//    @Test
+//    void testSeparateDescription(){
+//        Recipe first = getRecipes().get(0);
+//
+////        Mockito.when(recipeRepository.).thenReturn(Optional.ofNullable(first));
+//        Assertions.assertEquals(recipeService.separateDescription("id"), List.of("Step1", "Step2"));
+//
+//    }
+
+
+
+//    TargetEnum findRecipeTypeByCalories(int cal);
 }

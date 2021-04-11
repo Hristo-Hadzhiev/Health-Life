@@ -32,9 +32,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
                 // allow access to index, user login and registration to anyone
                         antMatchers("/", "/users/login", "/users/register").permitAll().
                 // protect all other pages
-//                        antMatchers("/**").authenticated().
-//                antMatchers("/private/**").
-                antMatchers("/private/**").hasAnyRole("ADMIN", "ROOT_ADMIN").
+                antMatchers("/private/all-diets", "/private/all-recipes", "/private/all-trainings").hasAnyRole("ADMIN").
                 antMatchers("/private/all-users").hasRole("ROOT_ADMIN").
                 and().
                 // configure login with HTML form

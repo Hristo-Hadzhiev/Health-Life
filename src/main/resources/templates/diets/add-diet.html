@@ -47,7 +47,7 @@
                                 id="targetOfDiet"
                                 name="target">
                             <option selected value="">Цел на диета!</option>
-                            <option selected th:each="t : ${T(health.model.entity.enums.DietTargetEnum).values()}"
+                            <option selected th:each="t : ${T(health.model.entity.enums.TargetEnum).values()}"
                                     th:text="${t}" th:value="${t}">Target
                             </option>
                         </select>

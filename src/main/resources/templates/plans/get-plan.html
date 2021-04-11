@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Choose your plan</title>
+    <th:block th:include="~{/fragments/head}"></th:block>
+    <link rel="stylesheet" href="/css/nav.css">
+    <link rel="stylesheet" href="/css/plan/get-plan.css">
+
+</head>
+
+<body>
+
+<th:block th:include="~{/fragments/nav-user}"></th:block>
+
+<h2 style="text-align: center; color: black; background-color: whitesmoke; padding: 2%"> Вземи най-доброто за теб!</h2>
+<div class="container">
+    <div class="left">
+        <form th:action="@{/plans/getPlan}" method="POST">
+            <h1>Изберете цел!</h1>
+            <select id="target"
+                    name="target">
+                <option th:each="t : ${T(health.model.entity.enums.TargetEnum).values()}"
+                        th:object="${t}" th:text="*{name()}" th:value="*{name()}">Starter
+                </option>
+            </select>
+            <div class="btn-block">
+                <button class="btn btn-success  btn-sm" type="submit" >Генерирай план</button>
+            </div>
+        </form>
+
+    </div>
+</div>
+</body>
+
+<th:block th:include="~{/fragments/footer}"></th:block>
+
+</body>
+</html>

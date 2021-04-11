@@ -1,7 +1,7 @@
 package health.init;
 
 import health.model.entity.Diet;
-import health.model.entity.enums.DietTargetEnum;
+import health.model.entity.enums.TargetEnum;
 import health.repository.DietRepository;
 import health.service.UserService;
 import org.springframework.boot.CommandLineRunner;
@@ -25,7 +25,7 @@ public class DietApplicationInit implements CommandLineRunner {
         if(dietRepository.count() == 0){
 
             Diet diet1 = new Diet("Диетата на д-р Аткинс", userService.findByUsername("admin"),
-                    DietTargetEnum.LOSING_WEIGHT,
+                    TargetEnum.ОТСЛАБВАНЕ,
                     "Диетата за отслабване на д-р Аткинс е богата на протеини ," +
                             " близо 90% от всички вещества, и бедна на въглехидрати – 10%." +
                             " Как се прилагат тези пропорции в менюто, ще ви покажем чрез няколко примера." +
@@ -36,7 +36,7 @@ public class DietApplicationInit implements CommandLineRunner {
                             "Вечеря: Парче телешко и 1 печен домат.", 74);
 
             Diet diet2 = new Diet("Кетогенна диета", userService.findByUsername("admin"),
-                    DietTargetEnum.MAINTENANCE_WEIGHT,
+                    TargetEnum.ТОНИЗИРАНЕ,
                     "При кетогенната диета се увеличава приемът на мазнини, според сайта Здраве плюс.\n" +
                             "\n" +
                             "Намалява се приемът на въглехидрати и се свежда до минимум приемът на белтъчини. \n" +
@@ -46,7 +46,7 @@ public class DietApplicationInit implements CommandLineRunner {
                             "Кетоните са естествен заместител на глюкозата.", 8);
 
             Diet diet3 = new Diet("Вегетарианска диета", userService.findByUsername("admin"),
-                    DietTargetEnum.MAINTENANCE_WEIGHT,
+                    TargetEnum.ТОНИЗИРАНЕ,
                     "Вегетарианската диета се състои в това да не ядем месо, нито производни продукти, дори риба, в рамките на 11 дни.\n" +
                             "\n" +
                             "\n" +
@@ -63,7 +63,7 @@ public class DietApplicationInit implements CommandLineRunner {
                             " нискомаслено кисело мляко дневно." ,3);
 
             Diet diet4 = new Diet("Диета „South Beach“", userService.findByUsername("admin"),
-                    DietTargetEnum.LOSING_WEIGHT,
+                    TargetEnum.ОТСЛАБВАНЕ,
                     "South Beach е иновативен режим, разработен от американския кардиолог д-р Артър Агатсън.\n" +
                             "\n" +
                             "\n" +
@@ -72,7 +72,7 @@ public class DietApplicationInit implements CommandLineRunner {
                             " броене на калории и глад – дори напротив. Вие сте сити и слабеете.",2);
 
             Diet diet5 = new Diet("Лунната диета", userService.findByUsername("admin"),
-                    DietTargetEnum.LOSING_WEIGHT,
+                    TargetEnum.ОТСЛАБВАНЕ,
                             "Лунната диета е течна диета, съобразена с лунните фази (новолуние," +
                             " първа четвърт, пълнолуние и последна четвърт). Спазва се 4 пъти в месеца." +
                             " Стартира при навлизане на Луната в определена фаза и завършва 24 часа по-късно. " +
@@ -81,7 +81,7 @@ public class DietApplicationInit implements CommandLineRunner {
                             "свалянето на килограми, без странични действия. ",10);
 
             Diet diet6 = new Diet("Диетата GI", userService.findByUsername("admin"),
-                    DietTargetEnum.GAINING_WEIGHT,
+                    TargetEnum.НАПЪЛНЯВАНЕ,
                     "Диетата GI е базирана на гликемичния индекс. Той отразява промените на количеството " +
                             "глюкоза в кръвта" +
                             " под въздействието на въглехидратите. Идеята е да се консумират продукти с по-нисък GI, за " +
@@ -91,7 +91,7 @@ public class DietApplicationInit implements CommandLineRunner {
                             "са естествено богати на фибри, нискокалорични и засищащи. Те автоматично водят до загуба на килограми.",5);
 
             Diet diet7 = new Diet("ВИСОКОЕНЕРГИЙНА ДИЕТА", userService.findByUsername("admin"),
-                    DietTargetEnum.GAINING_WEIGHT,
+                    TargetEnum.НАПЪЛНЯВАНЕ,
                     " Всеки ден трябва да имате три основни хранения плюс две или три допълнителни леки закуски. На" +
                             " някои от вас това ще се стори непосилно...," +
                             " но увеличаването на броя на храненията не означава, че трябва да консумирате допълнителни огромни" +
@@ -102,7 +102,7 @@ public class DietApplicationInit implements CommandLineRunner {
                             " и млечни напитки. Съдържащата се в" +
                             " тях вода активира дейността на мускулите. ",7);
 
-            Diet diet8 = new Diet("90-дневна диета", userService.findByUsername("admin"), DietTargetEnum.LOSING_WEIGHT,
+            Diet diet8 = new Diet("90-дневна диета", userService.findByUsername("admin"), TargetEnum.ОТСЛАБВАНЕ,
                     "90-дневната диета за разделяне на храната, е измислена от Бреда" +
                             " Хробат и Мойца Поляншек от Словения и тя се различава от много други планове за отслабване " +
                             "не само с нейната продължителност, но и със завидното разнообразие в менюто.\n" +
@@ -110,7 +110,7 @@ public class DietApplicationInit implements CommandLineRunner {
                             "Авторите се стремят да направят метаболизма по-добър и да го обучат на определена дисциплина" +
                             " в областта на храненето, но не се стремят да лишат хората от гастрономически удоволствия.",1);
 
-            Diet diet9 = new Diet("Житната диета на Петър Дънов", userService.findByUsername("admin"), DietTargetEnum.LOSING_WEIGHT,
+            Diet diet9 = new Diet("Житната диета на Петър Дънов", userService.findByUsername("admin"), TargetEnum.ОТСЛАБВАНЕ,
                     "Представлява десетдневен хранителен режим, който ще пречисти духът ви, тялото ви и ще ви " +
                             "помогне да имате много повече енергия, да заразявате всички около вас с положителни емоции" +
                             " и да бъдете здрави.\n" +
@@ -122,7 +122,7 @@ public class DietApplicationInit implements CommandLineRunner {
                             "Житната диета на Петър Дънов е един десетдневен хранителен режим\n" +
                             "Все пак трябва да имате предвид някои факти:\n",1);
 
-            Diet diet10 = new Diet("Диета на Дюкан", userService.findByUsername("admin"), DietTargetEnum.LOSING_WEIGHT,
+            Diet diet10 = new Diet("Диета на Дюкан", userService.findByUsername("admin"), TargetEnum.ОТСЛАБВАНЕ,
                     "За разлика от други високобелтъчни диети, този план се фокусира върху източници на постно белтъчно" +
                             " съдържание, като се избягват тези с мазнини.\n" +
                             "\n" +

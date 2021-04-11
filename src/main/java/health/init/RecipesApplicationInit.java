@@ -4,20 +4,20 @@ import health.model.entity.Recipe;
 import health.model.entity.enums.RecipeEnum;
 import health.repository.RecipeRepository;
 import health.service.UserService;
+import health.service.impl.RecipeServiceImpl;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 @Component
 public class RecipesApplicationInit implements CommandLineRunner {
 
     private final RecipeRepository recipeRepository;
+    private final RecipeServiceImpl recipeServiceImpl;
     private final UserService userService;
 
-    public RecipesApplicationInit(RecipeRepository recipeRepository, UserService userService) {
+    public RecipesApplicationInit(RecipeRepository recipeRepository, RecipeServiceImpl recipeServiceImpl, UserService userService) {
         this.recipeRepository = recipeRepository;
+        this.recipeServiceImpl = recipeServiceImpl;
         this.userService = userService;
     }
 
@@ -49,7 +49,8 @@ public class RecipesApplicationInit implements CommandLineRunner {
                             "Украсете със семена от нар по желание.",
                     100,
                     "/images/recipe/main/Рулца от патладжан с орехов пълнеж.jpg",
-                    userService.findByUsername("admin"));
+                    userService.findByUsername("admin"))
+                    .setTarget(recipeServiceImpl.findRecipeTypeByCalories(200));
 
             Recipe recipe2 = new Recipe("Здравословен крем с извара , заквасена сметана и ягоди", RecipeEnum.ДЕСЕРТ,
                     " 200-300гр. извара\n;" +
@@ -61,7 +62,8 @@ public class RecipesApplicationInit implements CommandLineRunner {
                             "Насипвате в купички за десерт и декорирате с ягодите и мента по избор",
                     80,
                     "/images/recipe/dessert/Здравословен крем с извара.jpg",
-                    userService.findByUsername("admin"));
+                    userService.findByUsername("admin")).
+                    setTarget(recipeServiceImpl.findRecipeTypeByCalories(400));
 
             Recipe recipe3 = new Recipe("Салата детокс с киноа и зеленчуци", RecipeEnum.ПРЕДЯСТИЕ,
                     "сварена киноа;" +
@@ -78,7 +80,8 @@ public class RecipesApplicationInit implements CommandLineRunner {
                     "Нарязвате съставките, след което овкусявате.; Готово за консумиране.",
                     240,
                     "/images/recipe/starter/Салата детокс с киноа и зеленчуци.jpg",
-                    userService.findByUsername("admin"));
+                    userService.findByUsername("admin")).
+                    setTarget(recipeServiceImpl.findRecipeTypeByCalories(170));
 
             Recipe recipe4 = new Recipe("Здравословен авокадо тост", RecipeEnum.ВЕГЕТАРИАНСКО,
                     " 1 голям кръгъл сладък картоф, нарязан по дължина на дълги филийки\n;" +
@@ -92,7 +95,8 @@ public class RecipesApplicationInit implements CommandLineRunner {
                             "След това декорирайте филийките по желание с яйце , червен лук , чери домати , ягоди.",
                     102,
                     "/images/recipe/vegetarian/Здравословен авокадо тост.jpg",
-                    userService.findByUsername("admin"));
+                    userService.findByUsername("admin")).
+                    setTarget(recipeServiceImpl.findRecipeTypeByCalories(154));
 
             Recipe recipe5 = new Recipe("Кокосови сурови топчета", RecipeEnum.ДЕСЕРТ,
                     " 1 1/2 чаши неподсладени кокосови стърготини\n;" +
@@ -108,7 +112,8 @@ public class RecipesApplicationInit implements CommandLineRunner {
                     "Разбиваме яйцата, след което ги слагаме в предварително загрят тиган; Бъркаме постоянно до готовност.",
                     300,
                     "/images/recipe/dessert/Кокосови сурови топчета.jpg",
-                    userService.findByUsername("admin"));
+                    userService.findByUsername("admin")).
+                    setTarget(recipeServiceImpl.findRecipeTypeByCalories(271));
 
             Recipe recipe6 = new Recipe("Чийзкейк с бисквити от спелта, бадеми и мед", RecipeEnum.ДЕСЕРТ,
                     " 200 гр. бисквити от спелта Alce Nero\n;" +
@@ -131,7 +136,8 @@ public class RecipesApplicationInit implements CommandLineRunner {
                             " Добавете останалия мед и разбъркайте; Сервирайте чийзкейка студен и гарниран с останалия мед и бадеми.",
                     74,
                     "/images/recipe/dessert/Чийзкейк с бисквити от спелта, бадеми и мед.jpg",
-                    userService.findByUsername("admin"));
+                    userService.findByUsername("admin"))
+                    .setTarget(recipeServiceImpl.findRecipeTypeByCalories(194));
 
             Recipe recipe7 = new Recipe("Сладолед с авокадо", RecipeEnum.ВЕГЕТАРИАНСКО,
                     " 2 бр. авокадо\n;" +
@@ -146,7 +152,8 @@ public class RecipesApplicationInit implements CommandLineRunner {
                             "Замразете във фризера за около 4 часа и това лятно изкушение е готово да ви разхлади в горещите дни;",
                     220,
                     "/images/recipe/vegetarian/Сладолед с авокадо.jpg",
-                    userService.findByUsername("admin"));
+                    userService.findByUsername("admin"))
+                    .setTarget(recipeServiceImpl.findRecipeTypeByCalories(266));
 
             Recipe recipe8 = new Recipe("Мъфини с яйца, спанак и гъби", RecipeEnum.ОСНОВНО,
                     " яйца\n;" +
@@ -164,7 +171,8 @@ public class RecipesApplicationInit implements CommandLineRunner {
                             " Печете във фурната на 180 градуса до готовност.;",
                     150,
                     "/images/recipe/main/Мъфини с яйца, спанак и гъби.jpg",
-                    userService.findByUsername("admin"));
+                    userService.findByUsername("admin"))
+                    .setTarget(recipeServiceImpl.findRecipeTypeByCalories(202));
 
             Recipe recipe9 = new Recipe("Супер закуска", RecipeEnum.ОСНОВНО,
                     " Кисело мляко\n;" +
@@ -179,7 +187,8 @@ public class RecipesApplicationInit implements CommandLineRunner {
                     " Прави се от вечерта. Просто се смесват всички съставки и се слагат в хладилника до сутринта.",
                     174,
                     "/images/recipe/starter/Супер закуска.jpg",
-                    userService.findByUsername("admin"));
+                    userService.findByUsername("admin"))
+                    .setTarget(recipeServiceImpl.findRecipeTypeByCalories(145));
 
             Recipe recipe10 = new Recipe("Суров чийзкейк с череши", RecipeEnum.ДЕСЕРТ,
                     " ½ чаша лешници\n;" +
@@ -199,7 +208,8 @@ public class RecipesApplicationInit implements CommandLineRunner {
                     "Смесваме съставките за крема и блата; Поставяме блата в една тава, след което отгоре намазваме крема.",
                     147,
                     "/images/recipe/dessert/Суров чийзкейк с череши.jpg",
-                    userService.findByUsername("admin"));
+                    userService.findByUsername("admin"))
+                    .setTarget(recipeServiceImpl.findRecipeTypeByCalories(320));
 
             Recipe recipe11 = new Recipe("Сурови топчета с малини", RecipeEnum.ДЕСЕРТ,
                     " 200 гр. кашу ( предварително накиснато за няколко часа)\n;" +
@@ -209,7 +219,7 @@ public class RecipesApplicationInit implements CommandLineRunner {
                             " кокосови стърготини или сушени малини на прах за овалване\n;" +
                             " замразени малини ,които се слагат вътре в бонбоните",
                     40,
-                    320,
+                    144,
                     "Сложете кашуто ,фурмите ,кокосовото масло и меда в чопър и ги смелете ,докато се получи хомогенна смес.;" +
                             " Трябва да е гъста и леко лепкава . От тази смес се оформят топчета ,като в средата се слага замразена малинка;" +
                             " Вместо малини може да се сложат боровинки или малки горски ягоди; Плодовете трябва да са замразени, " +
@@ -219,7 +229,8 @@ public class RecipesApplicationInit implements CommandLineRunner {
                             "защото само няколко бонбона засищат и дават енергия.",
                     147,
                     "/images/recipe/dessert/Сурови топчета с малини.jpg",
-                    userService.findByUsername("admin"));
+                    userService.findByUsername("admin"))
+                    .setTarget(recipeServiceImpl.findRecipeTypeByCalories(144));
 
             Recipe recipe12 = new Recipe("Здравословен вариант на любимата баклава", RecipeEnum.ДЕСЕРТ,
                     " 1 пакет кори за баница\n;" +
@@ -239,7 +250,7 @@ public class RecipesApplicationInit implements CommandLineRunner {
                             " ½ ч.л. индийско орехче\n;" +
                             " ½ чаша смлени ядки за гарниране;",
                     30,
-                    320,
+                    177,
                     " Загрейте фурната на 180 градуса\n" +
                             "Разтопете маслото, като първо намажете с него съда, в който ще приготвяте баклавата\n;" +
                             "Сложете три листа от корите, поръсете с разтопеното масло и покрийте с натрошени ядки\n;" +
@@ -254,7 +265,8 @@ public class RecipesApplicationInit implements CommandLineRunner {
                             " Поръсете с останалото от натрошените ядки и оставете да попие поне за 5 часа;",
                     147,
                     "/images/recipe/dessert/Здравословен вариант на любимата баклава.jpg",
-                    userService.findByUsername("admin"));
+                    userService.findByUsername("admin"))
+                    .setTarget(recipeServiceImpl.findRecipeTypeByCalories(177));
 
             Recipe recipe13 = new Recipe("Сурова веган торта с боровинки", RecipeEnum.ДЕСЕРТ,
                     " 100 гр. сушени, меки кайсии\n;" +
@@ -265,7 +277,7 @@ public class RecipesApplicationInit implements CommandLineRunner {
                             "\n" +
                             " шепа пресни листа от мащерка",
                     90,
-                    320,
+                    442,
                     "Пригответе форма с диаметър 18 см. и поставете парче пергаментна хартия в дъното на тортата.\n;" +
                             "Блендирайте до хомогенност съставките за основата; Готовото тесто разстелете равномерно върху хартията и притиснете с лъжица, за да е плътно.\n;" +
                             "Поставете всички съставки за пълнене (с изключение на боровинки и мащерка) в процесора / смесителя на храната и сместа до гладка.;" +
@@ -280,7 +292,8 @@ public class RecipesApplicationInit implements CommandLineRunner {
                             " Декорирайте с боровинките и мащерката.; Поставете тортата във фризера за около 2-3 часа или докато се стегне добре.;",
                     147,
                     "/images/recipe/dessert/Сурова веган торта с боровинки.jpg",
-                    userService.findByUsername("admin"));
+                    userService.findByUsername("admin"))
+                    .setTarget(recipeServiceImpl.findRecipeTypeByCalories(442));
 
             Recipe recipe14 = new Recipe("Кекс с череши и банани без захар", RecipeEnum.ДЕСЕРТ,
                     " 3 яйца\n" +
@@ -292,7 +305,7 @@ public class RecipesApplicationInit implements CommandLineRunner {
                             " 1 ч.л. бакпулвер\n;" +
                             " по желание ванилов сладолед или маскаропоне с плодове;",
                     60,
-                    320,
+                    285,
                     " Разбивате яйцата и подсладителите на сняг с миксер.\n;" +
                             " Добавяте брашното и бакпулвера и разбърквате с дървена шпатула бавно и внимателно\n" +
                             "докато стане хомогенно.\n;" +
@@ -303,7 +316,8 @@ public class RecipesApplicationInit implements CommandLineRunner {
                             "Поднесете с топка ванилов сладолед или маскарпоне с плодове. Може да се направи и във форма за мъфини.;",
                     147,
                     "/images/recipe/dessert/Кекс с череши и банани без захар.jpg",
-                    userService.findByUsername("admin"));
+                    userService.findByUsername("admin"))
+                    .setTarget(recipeServiceImpl.findRecipeTypeByCalories(285));
 
             Recipe recipe15 = new Recipe("Кестеново-тиквена супа", RecipeEnum.ПРЕДЯСТИЕ,
                     "4 с.л. масло\n;" +
@@ -316,7 +330,7 @@ public class RecipesApplicationInit implements CommandLineRunner {
                             "До 2 супени лъжици сметана\n;" +
                             "Тиквени семена за гарниране;",
                     60,
-                    320,
+                    298,
                     " Разтопете маслото в голяма тенджера при умерено ниска топлина.; Добавете лука," +
                             " тиквата, картофите и кестените, докато зеленчуците омекнат, за около 45 минути.; Оставете малко да се охлади.\n" +
                             "\n;" +
@@ -325,7 +339,8 @@ public class RecipesApplicationInit implements CommandLineRunner {
                             " ако желаете.",
                     147,
                     "/images/recipe/starter/Кестеново-тиквена супа.jpg",
-                    userService.findByUsername("admin"));
+                    userService.findByUsername("admin"))
+                    .setTarget(recipeServiceImpl.findRecipeTypeByCalories(298));
 
             recipeRepository.save(recipe1);
             recipeRepository.save(recipe2);

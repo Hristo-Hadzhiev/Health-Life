@@ -11,4 +11,6 @@ public interface AdminService {
     void deleteRecipe(String id);
 
     void deleteDiet(String id);
+
+    void deleteTraining(String id);
 }

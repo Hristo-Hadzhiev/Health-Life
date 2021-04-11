@@ -1,7 +1,7 @@
 package health.model.service;
 
 import health.model.entity.UserEntity;
-import health.model.entity.enums.DietTargetEnum;
+import health.model.entity.enums.TargetEnum;
 import org.hibernate.validator.constraints.Length;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 public class DietServiceModel {
     private String name;
     private UserEntity author;
-    private DietTargetEnum target;
+    private TargetEnum target;
     private String description;
 
 
@@ -37,11 +37,11 @@ public class DietServiceModel {
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    public DietTargetEnum getTarget() {
+    public TargetEnum getTarget() {
         return target;
     }
 
-    public void setTarget(DietTargetEnum target) {
+    public void setTarget(TargetEnum target) {
         this.target = target;
     }
 

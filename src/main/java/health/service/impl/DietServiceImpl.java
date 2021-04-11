@@ -1,18 +1,14 @@
 package health.service.impl;
 
 import health.model.entity.Diet;
-import health.model.entity.Recipe;
-import health.model.entity.UserEntity;
-import health.model.entity.enums.DietTargetEnum;
+import health.model.entity.enums.TargetEnum;
 import health.model.service.DietServiceModel;
 import health.model.view.DietViewModel;
-import health.model.view.RecipeViewModel;
 import health.repository.DietRepository;
 import health.service.DietService;
 import health.service.RecipeService;
 import health.service.UserService;
 import org.modelmapper.ModelMapper;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -61,7 +57,7 @@ public class DietServiceImpl implements DietService {
     }
 
     @Override
-    public List<DietViewModel> findAllDietsByTarget(DietTargetEnum losingWeight) {
+    public List<DietViewModel> findAllDietsByTarget(TargetEnum losingWeight) {
 
         return dietRepository.findAllByTarget(losingWeight)
                 .stream()
@@ -83,6 +79,11 @@ public class DietServiceImpl implements DietService {
     public boolean dietExists(String name) {
 
         return dietRepository.findByName(name).isPresent();
+    }
+
+    @Override
+    public void deleteById(String id) {
+        dietRepository.deleteById(id);
     }
 
 

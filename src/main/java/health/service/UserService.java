@@ -24,6 +24,5 @@ public interface UserService extends UserDetailsService {
 
     UserEntity findById(String id);
 
-
-
+    void deleteById(String id);
 }

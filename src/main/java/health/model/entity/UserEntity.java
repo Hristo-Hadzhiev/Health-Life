@@ -2,8 +2,8 @@ package health.model.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -12,7 +12,7 @@ public class UserEntity extends BaseClass {
     private String username;
     private String password;
     private String email;
-    private List<UserRoleEntity> roles = new ArrayList<>();
+    private Set<UserRoleEntity> roles = new HashSet<>();
 
     public UserEntity() {
     }
@@ -50,13 +50,12 @@ public class UserEntity extends BaseClass {
 
 //    , cascade = CascadeType.ALL
     @ManyToMany(fetch = FetchType.EAGER)
-    public List<UserRoleEntity> getRoles() {
+    public Set<UserRoleEntity> getRoles() {
         return roles;
     }
 
-    public UserEntity setRoles(List<UserRoleEntity> roles) {
+    public UserEntity setRoles(Set<UserRoleEntity> roles) {
         this.roles = roles;
         return this;
     }
-
 }

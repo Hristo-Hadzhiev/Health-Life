@@ -1,17 +1,14 @@
 package health.model.view;
 
-import health.model.entity.Recipe;
 import health.model.entity.UserEntity;
-import health.model.entity.enums.DietTargetEnum;
-
-import java.util.List;
+import health.model.entity.enums.TargetEnum;
 
 public class DietViewModel {
 
     private String id;
     private String name;
     private UserEntity author;
-    private DietTargetEnum target;
+    private TargetEnum target;
     private int likes;
     private String description;
 
@@ -42,11 +39,11 @@ public class DietViewModel {
         this.author = author;
     }
 
-    public DietTargetEnum getTarget() {
+    public TargetEnum getTarget() {
         return target;
     }
 
-    public void setTarget(DietTargetEnum target) {
+    public void setTarget(TargetEnum target) {
         this.target = target;
     }
 

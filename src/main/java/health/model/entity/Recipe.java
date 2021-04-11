@@ -1,6 +1,7 @@
 package health.model.entity;
 
 import health.model.entity.enums.RecipeEnum;
+import health.model.entity.enums.TargetEnum;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
@@ -26,7 +27,9 @@ public class Recipe extends BaseClass{
     private int likes;
     private String image;
     private UserEntity author;
+    private TargetEnum target;
     private LocalDateTime createdDate = LocalDateTime.now();
+
 
     public Recipe() {
     }
@@ -120,6 +123,16 @@ public class Recipe extends BaseClass{
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    @Enumerated(EnumType.STRING)
+    public TargetEnum getTarget() {
+        return target;
+    }
+
+    public Recipe setTarget(TargetEnum target) {
+        this.target = target;
+        return this;
     }
 
     @ManyToOne

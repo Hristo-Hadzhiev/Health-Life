@@ -1,0 +1,28 @@
+
+h1 {
+    font-size: 52px;
+    text-shadow: -1px -1px #0c0, 1px 1px #060, -3px 0 4px #000;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #fdffe9;
+    padding: 16px;
+    font-weight: lighter;
+    -moz-box-shadow: 2px 2px 6px #888;
+    -webkit-box-shadow: 2px 2px 6px #888;
+    box-shadow: 2px 2px 6px #888;
+    text-align: center;
+    display: block;
+    margin: 16px;
+}
+h2 {
+    float: left;
+    color: crimson;
+}
+.w3-third {
+    background-color: azure;
+    width: 50%;
+    height: 496px
+}
+.w3-twothird{
+    width: 50%;
+    background-color: ghostwhite;
+}

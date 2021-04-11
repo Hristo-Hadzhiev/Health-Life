@@ -1,7 +1,7 @@
 package health.web;
 
 import health.model.binding.DietAddBindingModel;
-import health.model.entity.enums.DietTargetEnum;
+import health.model.entity.enums.TargetEnum;
 import health.model.service.DietServiceModel;
 import health.service.DietService;
 import org.modelmapper.ModelMapper;
@@ -84,9 +84,9 @@ public class DietController {
     @GetMapping("/show-all")
     public String showAllDiets(Model model){
 
-        model.addAttribute("loss", dietService.findAllDietsByTarget(DietTargetEnum.LOSING_WEIGHT));
-        model.addAttribute("gain", dietService.findAllDietsByTarget(DietTargetEnum.GAINING_WEIGHT));
-        model.addAttribute("maintain", dietService.findAllDietsByTarget(DietTargetEnum.MAINTENANCE_WEIGHT));
+        model.addAttribute("loss", dietService.findAllDietsByTarget(TargetEnum.ОТСЛАБВАНЕ));
+        model.addAttribute("gain", dietService.findAllDietsByTarget(TargetEnum.НАПЪЛНЯВАНЕ));
+        model.addAttribute("maintain", dietService.findAllDietsByTarget(TargetEnum.ТОНИЗИРАНЕ));
 
         return "/diets/show-all";
     }

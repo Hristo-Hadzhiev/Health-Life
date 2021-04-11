@@ -2,6 +2,7 @@ package health.web;
 
 import health.model.binding.UserRegisterBindingModel;
 import health.model.service.UserServiceModel;
+import health.service.PlanService;
 import health.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -26,10 +27,12 @@ public class UserController {
 
     private final ModelMapper modelMapper;
     private final UserService userService;
+    private final PlanService planService;
 
-    public UserController(ModelMapper modelMapper, UserService userService) {
+    public UserController(ModelMapper modelMapper, UserService userService, PlanService planService) {
         this.modelMapper = modelMapper;
         this.userService = userService;
+        this.planService = planService;
     }
 
     @GetMapping("/login")
@@ -106,5 +109,13 @@ public class UserController {
         modelAndView.setViewName("redirect:/users/login");
         return modelAndView;
 
+    }
+
+    @GetMapping("/profile")
+    public String getProfile(Model model){
+
+        model.addAttribute("planUser",planService.findUserPlan());
+
+        return "profile";
     }
 }

@@ -8,6 +8,7 @@ import health.model.view.UserViewModel;
 import health.repository.UserRepository;
 import health.repository.UserRoleRepository;
 import health.service.UserService;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -22,6 +23,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -55,39 +57,38 @@ public class UserServiceImpl implements UserService {
                     .setPassword(passwordEncoder.encode("rootadmin"))
                     .setEmail("rootadmin@abv.bg")
 
-                    .setRoles(List.of(rootAdminRole, adminRole, userRole));
+                    .setRoles(Set.of(rootAdminRole, adminRole, userRole));
 
             UserEntity admin = new UserEntity()
                     .setUsername("admin")
                     .setPassword(passwordEncoder.encode("admin"))
                     .setEmail("admin@abv.bg")
 
-                    .setRoles(List.of(adminRole, userRole));
+                    .setRoles(Set.of(adminRole, userRole));
 
             UserEntity user1 = new UserEntity()
                     .setUsername("user")
                     .setPassword(passwordEncoder.encode("user"))
                     .setEmail("user@abv.bg")
-                    .setRoles(List.of(userRole));
+                    .setRoles(Set.of(userRole));
 
             UserEntity user2 = new UserEntity()
                     .setUsername("ivan")
                     .setPassword(passwordEncoder.encode("ivan"))
                     .setEmail("ivan@abv.bg")
-                    .setRoles(List.of(userRole));
+                    .setRoles(Set.of(userRole));
 
             UserEntity user3 = new UserEntity()
                     .setUsername("ana")
                     .setPassword(passwordEncoder.encode("ana"))
                     .setEmail("ana@abv.bg")
-                    .setRoles(List.of(userRole));
+                    .setRoles(Set.of(userRole));
 
             UserEntity user4 = new UserEntity()
                     .setUsername("radost")
                     .setPassword(passwordEncoder.encode("radost"))
                     .setEmail("radost@abv.bg")
-                    .setRoles(List.of(userRole));
-
+                    .setRoles(Set.of(userRole));
 
             userRepository.saveAndFlush(rootadmin);
             userRepository.saveAndFlush(admin);
@@ -109,12 +110,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean userNameExists(String username) {
 
-        return userRepository.findByUsername(username).isPresent();
+        return userRepository.findByUsername(username) != null;
     }
 
     @Override
     public UserEntity findByUsername(String username) {
-        return userRepository.findByUsername(username).orElse(null);
+        return userRepository.findByUsername(username);
     }
 
     @Override
@@ -137,12 +138,16 @@ public class UserServiceImpl implements UserService {
                 .collect(Collectors.toList());
     }
 
-
     @Override
     public UserEntity findById(String id) {
 
         return userRepository.findById(id)
                 .orElse(null);
+    }
+
+    @Override
+    public void deleteById(String id) {
+        userRepository.deleteById(id);
     }
 
     @Scheduled(cron = "0 0 8 * * *" )
@@ -151,12 +156,10 @@ public class UserServiceImpl implements UserService {
         System.out.println("Count of register users: " + userRepository.count());
     }
 
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserEntity userEntity = userRepository.
-                findByUsername(username).
-                orElseThrow(() -> new UsernameNotFoundException("User with name " + username + " was not found."));
+                findByUsername(username);
 
         return mapToUserDetails(userEntity);
     }

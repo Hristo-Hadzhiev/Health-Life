@@ -2,6 +2,7 @@ package health.service.impl;
 
 import health.model.entity.Recipe;
 import health.model.entity.enums.RecipeEnum;
+import health.model.entity.enums.TargetEnum;
 import health.model.service.RecipeServiceModel;
 import health.model.view.RecipeViewModel;
 import health.repository.RecipeRepository;
@@ -11,7 +12,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -34,11 +34,11 @@ public class RecipeServiceImpl implements RecipeService {
     public void createAndAddRecipe(RecipeServiceModel recipeServiceModel) {
         Recipe recipe = modelMapper.map(recipeServiceModel, Recipe.class);
         recipe.setAuthor(userService.findByUsername(userService.getUsername()));
+        recipe.setTarget(findRecipeTypeByCalories(recipe.getCalories()));
         recipe.setCreatedDate(LocalDateTime.now());
 
         recipeRepository.save(recipe);
     }
-
     @Override
     public List<Recipe> findRecipesByType(String starter) {
 
@@ -49,10 +49,7 @@ public class RecipeServiceImpl implements RecipeService {
     public RecipeViewModel findById(String id) {
 
         return this.recipeRepository.findById(id)
-                .map(item -> {
-                    return this.modelMapper.map(item, RecipeViewModel.class);
-
-                }).orElse(null);
+                .map(item -> this.modelMapper.map(item, RecipeViewModel.class)).orElse(null);
     }
 
     @Override
@@ -81,5 +78,25 @@ public class RecipeServiceImpl implements RecipeService {
         String recipeProducts = Objects.requireNonNull(recipeRepository.findById(id).orElse(null)).getDescription();
         return Arrays.asList(recipeProducts.split(" *[;] *"));
     }
+
+    @Override
+    public void deleteById(String id) {
+        recipeRepository.deleteById(id);
+    }
+
+    @Override
+    public TargetEnum findRecipeTypeByCalories(int calories) {
+        TargetEnum targetEnum;
+
+        if(calories<=200){
+            targetEnum = TargetEnum.ОТСЛАБВАНЕ;
+        }else if (calories <= 300){
+            targetEnum = TargetEnum.ТОНИЗИРАНЕ;
+        }else {
+            targetEnum = TargetEnum.НАПЪЛНЯВАНЕ;
+        }
+        return targetEnum;
+    }
+
 
 }
